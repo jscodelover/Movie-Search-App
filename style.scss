@@ -1,0 +1,40 @@
+.card-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-gap: 40px;
+	grid-template-rows: 450px;
+	justify-items: center;
+	padding: 0 5%;
+	.card {
+		position: relative;
+		height: 450px;
+		min-width: 300px;
+		-webkit-perspective: 200rem;
+		perspective: 200rem;
+		&__side {
+			position: absolute;
+			top: 0;
+			left: 0;
+			padding: 20px;
+			min-width: inherit;
+			height: inherit;
+			background-color: white;
+			backface-visibility: hidden;
+			box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+			overflow: hidden;
+			border-radius: 37px;
+			transition: all 0.8s ease;
+			&--back {
+				transform: rotateY(180deg);
+			}
+		}
+		&:hover {
+			.card__side--front {
+				transform: rotateY(-180deg);
+			}
+			.card__side--back {
+				transform: rotateY(0deg);
+			}
+		}
+	}
+}
