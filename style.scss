@@ -1,3 +1,9 @@
+button {
+	&:focus {
+		outline: none;
+	}
+}
+
 .card-container {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -26,7 +32,7 @@
 			transition: all 0.8s ease;
 			&--front {
 				.card__img {
-					height: 200px;
+					height: 215px;
 					width: 100%;
 					object-fit: cover;
 				}
@@ -39,32 +45,56 @@
 				justify-content: space-around;
 				position: absolute;
 				width: 100%;
-				bottom: 20px;
+				bottom: 15px;
 				img {
-					width: 32px;
+					width: 28px;
+				}
+			}
+			.card__content {
+				display: flex;
+				flex-direction: column-reverse;
+				padding: 15px 15px;
+				height: calc(100% - 215px - 40px);
+				h1 {
+					flex: 1 0 40%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					height: calc(100% - 60px);
 				}
 			}
 		}
-		&:hover {
-			.card__side--front {
-				transform: rotateY(-180deg);
-			}
-			.card__side--back {
-				transform: rotateY(0deg);
+		// &:hover {
+		// .card__side--front {
+		// 	transform: rotateY(-180deg);
+		// }
+		// .card__side--back {
+		// 	transform: rotateY(0deg);
+		// }
+		// }
+		.card__menu {
+			position: absolute;
+			top: 192px;
+			right: 10px;
+			background-color: white;
+			padding: 10px;
+			border-radius: 50%;
+			box-shadow: 0px 0px 3px 0px #00000085;
+			img {
+				width: 22px;
 			}
 		}
 	}
 }
 
-$circle-size: 120px;
+$circle-size: 60px;
 $circle-background: #d9d9d9;
-$circle-color: #1291d4;
-$inset-size: 105px;
+$inset-size: 48px;
 $inset-color: #fbfbfb;
 $transition-length: 1s;
 
 .progress-circle {
-	margin: 20px auto;
+	margin: auto;
 	width: $circle-size;
 	height: $circle-size;
 
@@ -84,7 +114,36 @@ $transition-length: 1s;
 		clip: rect(0px, $circle-size, $circle-size, $circle-size/2);
 		.progress-circle__fill {
 			clip: rect(0px, $circle-size/2, $circle-size, 0px);
-			background-color: $circle-color;
+		}
+		.progress-circle__fill--green {
+			background-image: linear-gradient(
+				to left,
+				#02674c,
+				#00834f,
+				#089e49,
+				#3bba37,
+				#6ad402
+			);
+		}
+		.progress-circle__fill--yellow {
+			background-image: linear-gradient(
+				to right top,
+				#d1ee09,
+				#d8ec09,
+				#dfea0a,
+				#e5e70e,
+				#ebe512
+			);
+		}
+		.progress-circle__fill--red {
+			background-image: linear-gradient(
+				to left,
+				#a40618,
+				#af1d2a,
+				#ba2e3c,
+				#c33d4e,
+				#cc4b5f
+			);
 		}
 	}
 	.progress-circle__overlay {
@@ -93,9 +152,14 @@ $transition-length: 1s;
 		position: absolute;
 		margin-left: ($circle-size - $inset-size)/2;
 		margin-top: ($circle-size - $inset-size)/2;
-
 		background-color: $inset-color;
 		border-radius: 50%;
+		.progress {
+			position: absolute;
+			top: 27%;
+			left: 50%;
+			transform: translateX(-50%);
+		}
 	}
 
 	$i: 0;

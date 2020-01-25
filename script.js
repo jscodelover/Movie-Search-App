@@ -1,5 +1,5 @@
 // Vue Component
-const Card = Vue.component('Card', {
+Vue.component('Card', {
 	template: `<div class="card">
 							<div class="card__side card__side--front">
 								<img 
@@ -7,21 +7,30 @@ const Card = Vue.component('Card', {
 									src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/or06FN3Dka5tukK1e9sl16pB3iy.jpg" 
 									alt="poster" 
 								/>
-								<h1 class="m-3 text-2xl text-center text-green-800 tracking-widers">Avengers: Endgame</h1>
+								<div class="card__content">
+									<h1 class="text-xl text-center text-green-800 tracking-widers">Once Upon a Time… in Hollywood</h1>
+									<ProgressBar></ProgressBar>
+								</div>
+								<button class="card__menu">
+									<img 
+										src="./images/menu.png" 
+										alt="menu" 
+									/>
+								</button>
 								<div class="card__action">
-									<a href="#">
+									<a href="#" title="Bookmark">
 										<img 
 											src="./images/bookmark.png" 
 											alt="bookmark" 
 										/>
 									</a>
-									<a href="#">	
+									<a href="#" title="Add favourite">	
 										<img 
 											src="./images/heart.png" 
 											alt="heart" 
 										/>
 									</a>
-									<a href="#">	
+									<a href="#" title="Rating">	
 										<img 
 											src="./images/star.png" 
 											alt="star" 
@@ -33,17 +42,28 @@ const Card = Vue.component('Card', {
 						</div>`
 });
 
-const ProgressBar = Vue.component('ProgressBar', {
-	template: `<div>Hello</div>`
+Vue.component('Inputbox', {
+	template: `<div>Hi</div>`
+});
+
+Vue.component('ProgressBar', {
+	template: `<div class="progress-circle" data-progress="40">
+							<div class="circle">
+									<div class="full progress-circle__slice">
+											<div class="progress-circle__fill progress-circle__fill--green"></div>
+									</div>
+									<div class="progress-circle__slice">
+											<div class="progress-circle__fill progress-circle__fill--green"></div>
+											<div class="progress-circle__fill progress-circle__fill--green progress-circle__bar"></div>
+									</div>
+							</div>
+							<div class="progress-circle__overlay"><span class="progress font-mono text-base">80%</span></div>
+						</div>`
 });
 
 // Vue instance
 new Vue({
-	el: '#root',
-	components: {
-		Card,
-		ProgressBar
-	}
+	el: '#root'
 });
 
 const image_path = 'https://image.tmdb.org/t/p/w185_and_h278_bestv2';
