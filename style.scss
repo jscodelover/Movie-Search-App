@@ -1,7 +1,41 @@
-button {
+button,
+input {
 	&:focus {
 		outline: none;
 	}
+}
+
+.header {
+	padding: 20px;
+	background: black;
+	color: white;
+	text-align: center;
+	font-family: monospace;
+}
+
+footer {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	.link {
+		img {
+			width: 28px;
+		}
+		a:nth-child(2) {
+			padding: 0px 7px;
+		}
+	}
+	@media (max-width: 600px) {
+		flex-direction: column;
+		.link {
+			margin-bottom: 6px;
+		}
+	}
+}
+
+.content {
+	min-height: calc(100vh - 192px);
 }
 
 .card-container {
@@ -10,7 +44,7 @@ button {
 	grid-gap: 40px;
 	grid-template-rows: 450px;
 	justify-items: center;
-	padding: 0 5%;
+	padding: 60px 5% 0px;
 	.card {
 		position: relative;
 		height: 450px;
@@ -25,6 +59,7 @@ button {
 			height: inherit;
 			background-color: white;
 			backface-visibility: hidden;
+			-webkit-backface-visibility: hidden;
 			box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
 			overflow: hidden;
 			border-radius: 37px;
@@ -84,6 +119,17 @@ button {
 				width: 22px;
 			}
 		}
+	}
+}
+
+.search-container {
+	margin: 45px auto;
+	text-align: center;
+	input {
+		border: 2px solid #48bb77;
+		border-radius: 4px;
+		padding: 6px 12px;
+		width: 50%;
 	}
 }
 

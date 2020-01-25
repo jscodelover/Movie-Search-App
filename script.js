@@ -8,7 +8,7 @@ Vue.component('Card', {
 									alt="poster" 
 								/>
 								<div class="card__content">
-									<h1 class="text-xl text-center text-green-800 tracking-widers">Once Upon a Time… in Hollywood</h1>
+									<h1 class="text-xl text-center text-green-800 tracking-wide">Once Upon a Time… in Hollywood</h1>
 									<ProgressBar></ProgressBar>
 								</div>
 								<button class="card__menu">
@@ -43,7 +43,11 @@ Vue.component('Card', {
 });
 
 Vue.component('Inputbox', {
-	template: `<div>Hi</div>`
+	template: `<div class="search-container">
+							<input type="text" placeholder="Search for a movie" />
+							<button class="bg-green-500 w-28 tracking-wider
+							 hover:bg-green-700 text-white py-2 px-4 rounded ml-4">Search</button>
+						</div>`
 });
 
 Vue.component('ProgressBar', {
