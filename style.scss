@@ -99,14 +99,6 @@ footer {
 				}
 			}
 		}
-		// &:hover {
-		// .card__side--front {
-		// 	transform: rotateY(-180deg);
-		// }
-		// .card__side--back {
-		// 	transform: rotateY(0deg);
-		// }
-		// }
 		.card__menu {
 			position: absolute;
 			top: 192px;
@@ -118,6 +110,14 @@ footer {
 			img {
 				width: 22px;
 			}
+		}
+	}
+	.flip-card {
+		.card__side--front {
+			transform: rotateY(-180deg);
+		}
+		.card__side--back {
+			transform: rotateY(0deg);
 		}
 	}
 }

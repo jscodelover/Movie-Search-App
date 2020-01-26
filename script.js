@@ -1,6 +1,15 @@
 // Vue Component
 Vue.component('Card', {
-	template: `<div class="card">
+	props: {
+		flipCard: {
+			type: Boolean,
+			required: true
+		},
+		id: {
+			type: Number
+		}
+	},
+	template: `<div class="card" :class="flipCard? 'flip-card' : '' ">
 							<div class="card__side card__side--front">
 								<img 
 									class="card__img"
@@ -11,7 +20,7 @@ Vue.component('Card', {
 									<h1 class="text-xl text-center text-green-800 tracking-wide">Once Upon a Time… in Hollywood</h1>
 									<ProgressBar></ProgressBar>
 								</div>
-								<button class="card__menu">
+								<button class="card__menu" v-on:click="handleMenu(id)">
 									<img 
 										src="./images/menu.png" 
 										alt="menu" 
@@ -38,8 +47,19 @@ Vue.component('Card', {
 									</a>	
 								</div>
 							</div>
-							<div class="card__side card__side--back"> back </div>
-						</div>`
+							<div class="card__side card__side--back" ref="card-back"> back 
+							<button v-on:click="handleMenu(null)">Back </button>
+							</div>
+						</div>`,
+	data() {
+		return {};
+	},
+	methods: {
+		handleMenu(id) {
+			this.$emit('clicked', id);
+		}
+	},
+	mounted() {}
 });
 
 Vue.component('Inputbox', {
@@ -67,7 +87,23 @@ Vue.component('ProgressBar', {
 
 // Vue instance
 new Vue({
-	el: '#root'
+	el: '#root',
+	template: `<div class="content">
+							<Inputbox></Inputbox>
+							<div class="card-container">
+								<Card v-for="(card, index) in cards" :id="index" :flipCard="flipCard === index" @clicked="handleClick"></Card> 
+							</div>
+						</div>`,
+	data: {
+		flipCard: null,
+		cards: [1, 2, 3, 4]
+	},
+	methods: {
+		handleClick(id) {
+			console.log(id);
+			this.flipCard = id;
+		}
+	}
 });
 
 getMovie('joker').then(data => console.log(data));
