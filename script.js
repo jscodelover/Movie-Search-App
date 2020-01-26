@@ -70,34 +70,6 @@ new Vue({
 	el: '#root'
 });
 
-const image_path = 'https://image.tmdb.org/t/p/w185_and_h278_bestv2';
-const api_key = '7a6be3a7d8314d666d431de2a459c893';
-
-async function getHero(name) {
-	try {
-		const response = await fetch(
-			`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&language=en-US&query=${name}&page=1&include_adult=false`
-		);
-		const data = await response.json();
-		console.log(data);
-	} catch (e) {
-		console.log(e);
-	}
-}
-
-getHero('avenger end');
-
-{
-	/* <div class="progress-circle" data-progress="40">
-								<div class="circle">
-										<div class="full progress-circle__slice">
-												<div class="progress-circle__fill"></div>
-										</div>
-										<div class="progress-circle__slice">
-												<div class="progress-circle__fill"></div>
-												<div class="progress-circle__fill progress-circle__bar"></div>
-										</div>
-								</div>
-								<div class="progress-circle__overlay"></div>
-						</div> */
-}
+getMovie('joker').then(data => console.log(data));
+getGenre().then(data => console.log(data));
+postRating('133792', { value: 8.5 }).then(data => console.log(data));

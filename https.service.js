@@ -1,6 +1,7 @@
 const image_path = 'https://image.tmdb.org/t/p/w185_and_h278_bestv2';
 const api_key = '7a6be3a7d8314d666d431de2a459c893';
 
+// Get searched movie
 async function getMovie(name) {
 	try {
 		const response = await fetch(
@@ -13,10 +14,7 @@ async function getMovie(name) {
 	}
 }
 
-function getImagePath() {
-	return image_path;
-}
-
+// get genre list
 async function getGenre() {
 	try {
 		const response = await fetch(
@@ -29,6 +27,7 @@ async function getGenre() {
 	}
 }
 
+// post rating for movie using movie id
 async function postRating(movie_id, rating) {
 	try {
 		const guest_session = await fetch(
@@ -39,7 +38,10 @@ async function postRating(movie_id, rating) {
 			`https://api.themoviedb.org/3/movie/${movie_id}/rating?api_key=${api_key}&guest_session_id=${tokenData.guest_session_id}`,
 			{
 				method: 'POST',
-				body: JSON.stringify(rating)
+				body: JSON.stringify(rating),
+				headers: {
+					'Content-Type': 'application/json;charset=utf-8'
+				}
 			}
 		);
 		const data = await response.json();
@@ -47,4 +49,9 @@ async function postRating(movie_id, rating) {
 	} catch (e) {
 		return { error: 'Something went wrong.', e };
 	}
+}
+
+// get image path
+function getImagePath() {
+	return image_path;
 }
