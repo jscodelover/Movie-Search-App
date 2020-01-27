@@ -16,7 +16,7 @@ Vue.component('Card', {
 									src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/or06FN3Dka5tukK1e9sl16pB3iy.jpg" 
 									alt="poster" 
 								/>
-								<div class="card__content">
+								<div class="card__content--front">
 									<h1 class="text-xl text-center text-green-800 tracking-wide">Once Upon a Time… in Hollywood</h1>
 									<ProgressBar></ProgressBar>
 								</div>
@@ -47,8 +47,15 @@ Vue.component('Card', {
 									</a>	
 								</div>
 							</div>
-							<div class="card__side card__side--back" ref="card-back"> back 
-							<button v-on:click="handleMenu(null)">Back </button>
+							<div class="card__side card__side--back">
+								<div class="card__content--back">
+									<h2 class="text-center">Overview</h2>
+									<div class="overview"><p>During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure. During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure. During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.</p></div>
+									<div class="back-btn-action">	
+										<button>Read More</button>
+										<button v-on:click="handleMenu(null)">Back</button>
+									</div>
+								</div>
 							</div>
 						</div>`,
 	data() {

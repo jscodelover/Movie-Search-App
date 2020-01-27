@@ -86,16 +86,53 @@ footer {
 				}
 			}
 			.card__content {
-				display: flex;
-				flex-direction: column-reverse;
-				padding: 15px 15px;
-				height: calc(100% - 215px - 40px);
-				h1 {
-					flex: 1 0 40%;
+				&--front {
 					display: flex;
-					justify-content: center;
-					align-items: center;
-					height: calc(100% - 60px);
+					flex-direction: column-reverse;
+					padding: 15px 15px;
+					height: calc(100% - 215px - 40px);
+					h1 {
+						flex: 1 0 40%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						height: calc(100% - 60px);
+					}
+				}
+				&--back {
+					padding: 20px 20px 66px;
+					height: 100%;
+					position: relative;
+					.overview{
+						display: flex;
+						align-items: center;
+						height: 100%;
+						p{
+							margin-top: -16px;
+							max-height: calc(100% - 33px);
+							text-align: justify;
+							font-size: 14px;
+							overflow: hidden;
+							text-overflow: clip;
+							display: -webkit-box;
+							-webkit-line-clamp: 15;
+							-webkit-box-orient: vertical;
+						}
+					}
+					.back-btn-action {
+						position: absolute;
+						bottom: 20px;
+						display: flex;
+						justify-content: space-evenly;
+						width: calc(100% - 40px);
+						button {
+							min-width: 100px;
+							border-radius: 18px;
+							padding: 3px 11px;
+							background-color: #c1eccc;
+							font-size: 15px;
+						}
+					}
 				}
 			}
 		}
