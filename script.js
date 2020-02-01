@@ -92,7 +92,25 @@ Vue.component('ProgressBar', {
 });
 
 // vue router
-const Home = { template: `<div>Home</div>` };
+const Home = Vue.component('Home', {
+	template: `<div class="content">
+	<Inputbox></Inputbox>
+	<div class="card-container">
+		<Card v-for="(card, index) in cards" :key="card" :id="index" :flipCard="flipCard === index" @clicked="handleClick"></Card> 
+	</div>
+</div>`,
+	data() {
+		return {
+			flipCard: null,
+			cards: [1, 2, 3, 4]
+		};
+	},
+	methods: {
+		handleClick(id) {
+			this.flipCard = id;
+		}
+	}
+});
 const Movie = { template: `<h1>Movie</h1>` };
 
 const routes = [
