@@ -65,8 +65,7 @@ Vue.component('Card', {
 		handleMenu(id) {
 			this.$emit('clicked', id);
 		}
-	},
-	mounted() {}
+	}
 });
 
 Vue.component('Inputbox', {
@@ -92,27 +91,30 @@ Vue.component('ProgressBar', {
 						</div>`
 });
 
+// vue router
+const Home = { template: `<div>Home</div>` };
+const Movie = { template: `<h1>Movie</h1>` };
+
+const routes = [
+	{ path: '/', component: Home },
+	{ path: '/movie/:id', component: Movie }
+];
+
+const router = new VueRouter({
+	routes
+});
+
 // Vue instance
 new Vue({
 	el: '#root',
-	template: `<div class="content">
-							<Inputbox></Inputbox>
-							<div class="card-container">
-								<Card v-for="(card, index) in cards" :id="index" :flipCard="flipCard === index" @clicked="handleClick"></Card> 
-							</div>
-						</div>`,
-	data: {
-		flipCard: null,
-		cards: [1, 2, 3, 4]
-	},
-	methods: {
-		handleClick(id) {
-			console.log(id);
-			this.flipCard = id;
-		}
-	}
+	router,
+	template: `<div>	
+							<router-link to="/">Home</router-link>
+							<router-link to="/movie/:id">Movie</router-link>
+							<router-view></router-view>
+						</div>`
 });
 
-getMovie('joker').then(data => console.log(data));
-getGenre().then(data => console.log(data));
-postRating('133792', { value: 8.5 }).then(data => console.log(data));
+// getMovie('joker').then(data => console.log(data));
+// getGenre().then(data => console.log(data));
+// postRating('133792', { value: 8.5 }).then(data => console.log(data));
