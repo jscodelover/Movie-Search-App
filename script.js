@@ -13,7 +13,7 @@ Vue.component('Card', {
 							<div class="card__side card__side--front">
 								<img 
 									class="card__img"
-									src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/or06FN3Dka5tukK1e9sl16pB3iy.jpg" 
+									src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" 
 									alt="poster" 
 								/>
 								<div class="card__content--front">
@@ -91,14 +91,54 @@ Vue.component('ProgressBar', {
 						</div>`
 });
 
+Vue.component('MovieHeader', {
+	template: `<div class="movie__header">
+							<img class="movie__header--poster" src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" alt="poster" />	
+							<div class="movie__header--content">
+								<h1>
+									<span class="text-2xl font-bold">Hello name of the movie can be: this!! long? yes</span>
+									<span class="text-xl tracking-wider text-gray-400"> (2018)</span>
+								</h1>
+								<div class="movie__action">
+									<div class="movie__action--score">
+										<ProgressBar></ProgressBar>
+										<span>User Score</span>
+									</div>
+									<a href="#" title="Bookmark" class="movie__action--link">
+										<img 
+											src="./images/bookmark.png" 
+											alt="bookmark" 
+										/>
+									</a>
+									<a href="#" title="Add favourite" class="movie__action--link">	
+										<img 
+											src="./images/heart.png" 
+											alt="heart" 
+										/>
+									</a>
+									<a href="#" title="Rating" class="movie__action--link">	
+										<img 
+											src="./images/star.png" 
+											alt="star" 
+										/>
+									</a>
+								</div>
+								<div>
+									<h2>Overview</h2>
+									<p class="text-sm mt-2 text-justify">The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth, astronaut Roy McBride undertakes a mission across the immensity of space and its many perils to uncover the truth about a lost expedition that decades before boldly faced emptiness and silence in search of the unknown.</p>
+								</div>
+							</div>
+						</div>`
+});
+
 // vue router
 const Home = Vue.component('Home', {
 	template: `<div class="content">
-	<Inputbox></Inputbox>
-	<div class="card-container">
-		<Card v-for="(card, index) in cards" :key="card" :id="index" :flipCard="flipCard === index" @clicked="handleClick"></Card> 
-	</div>
-</div>`,
+							<Inputbox></Inputbox>
+							<div class="card-container">
+								<Card v-for="(card, index) in cards" :key="card" :id="index" :flipCard="flipCard === index" @clicked="handleClick"></Card> 
+							</div>
+						</div>`,
 	data() {
 		return {
 			flipCard: null,
@@ -111,7 +151,9 @@ const Home = Vue.component('Home', {
 		}
 	}
 });
-const Movie = { template: `<h1>Movie</h1>` };
+const Movie = Vue.component('Movie', {
+	template: `<MovieHeader></MovieHeader>`
+});
 
 const routes = [
 	{ path: '/', component: Home },
