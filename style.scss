@@ -335,6 +335,21 @@ $transition-length: 1s;
 				justify-content: center;
 			}
 		}
+		.crew-container {
+			display: grid;
+			grid-gap: 20px;
+			grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			.crew {
+				line-height: 17px;
+				& > h3 {
+					font-weight: 600;
+					font-size: 1rem;
+				}
+				& > span {
+					font-size: 0.875rem;
+				}
+			}
+		}
 	}
 	@media (max-width: 1023px) {
 		padding-left: 5%;

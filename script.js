@@ -96,8 +96,8 @@ Vue.component('MovieHeader', {
 							<img class="movie__header--poster" src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" alt="poster" />	
 							<div class="movie__header--content">
 								<h1>
-									<span class="text-2xl font-bold">Hello name of the movie can be: this!! long? yes</span>
-									<span class="text-xl tracking-wider text-gray-400"> (2018)</span>
+									<span class="text-3xl font-bold">Hello name of the movie can be: this!! long? yes</span>
+									<span class="text-2xl tracking-wider text-gray-400"> (2018)</span>
 								</h1>
 								<div class="movie__action">
 									<div class="movie__action--score">
@@ -124,8 +124,31 @@ Vue.component('MovieHeader', {
 									</a>
 								</div>
 								<div>
-									<h2>Overview</h2>
-									<p class="text-sm mt-2 text-justify">The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth, astronaut Roy McBride undertakes a mission across the immensity of space and its many perils to uncover the truth about a lost expedition that decades before boldly faced emptiness and silence in search of the unknown.</p>
+									<h2 class="font-semibold">Overview</h2>
+									<p class="text-base mt-2 text-justify">The near future, a time when both hope and hardships drive humanity to look to the stars and beyond. While a mysterious phenomenon menaces to destroy life on planet Earth, astronaut Roy McBride undertakes a mission across the immensity of space and its many perils to uncover the truth about a lost expedition that decades before boldly faced emptiness and silence in search of the unknown.</p>
+								</div>
+								<h2 class="mt-8 mb-2 font-semibold">Featured Crew</h2>
+								<div class="crew-container">
+									<div class="crew">
+										<h3>James Gray James Gray James Gray</h3>
+										<span>Director, Screenplay</span>
+									</div>
+									<div class="crew">
+										<h3>James Gray</h3>
+										<span>Director, Screenplay</span>
+									</div>
+									<div class="crew">
+										<h3>James Gray James Gray</h3>
+										<span>Director, Screenplay</span>
+									</div>
+									<div class="crew">
+										<h3>James Gray</h3>
+										<span>Director, Screenplay</span>
+									</div>
+									<div class="crew">
+										<h3>James Gray</h3>
+										<span>Director, Screenplay</span>
+									</div>
 								</div>
 							</div>
 						</div>`
@@ -175,6 +198,6 @@ new Vue({
 						</div>`
 });
 
-// getMovie('joker').then(data => console.log(data));
-// getGenre().then(data => console.log(data));
-// postRating('133792', { value: 8.5 }).then(data => console.log(data));
+getMovie('joker').then(data => console.log(data));
+getGenre().then(data => console.log(data));
+postRating('133792', { value: 8.5 }).then(data => console.log(data));
