@@ -191,10 +191,38 @@ Vue.component('MovieSidebar', {
 						</div>`
 });
 
+Vue.component('MovieDetail', {
+	template: ``
+});
+
+// <MovieReviews v-if="tab"></MovieReviews>
+// <MovieMember v-else></MovieMember>
+
 Vue.component('MovieContent', {
+	data() {
+		return {
+			tab: 1
+		};
+	},
+	methods: {
+		handleTab(id) {
+			this.tab = id;
+		}
+	},
 	template: `<div class="movie__content">
 							<MovieSidebar></MovieSidebar>
-							<h1>2</h1>
+							<div>
+								<div class="tabs">
+									<button :class="tab === 1 ? 'b-b' : null" @click="handleTab(1)">Full Cast&Crew</button>
+									<button :class="tab === 2 ? 'b-b' : null" @click="handleTab(2)">Reviews</button>
+									<button :class="tab === 3 ? 'b-b' : null" @click="handleTab(3)">Videos</button>
+								</div>
+								<div class="tab__content">
+									<div v-if="tab === 1">1</div>
+									<div v-else-if="tab === 2">2</div>
+									<div v-else>3</div>
+								</div>
+							</div>
 						</div>
 	`
 });
