@@ -438,3 +438,14 @@ $transition-length: 1s;
 .tab__content {
 	padding: 40px;
 }
+
+.movie__cast {
+	display: grid;
+	grid-gap: 20px;
+	grid-template-columns: repeat(auto-fit, 160px);
+	justify-items: center;
+	&--person {
+		background-color: white;
+		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+	}
+}

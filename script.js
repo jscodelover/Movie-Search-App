@@ -191,8 +191,64 @@ Vue.component('MovieSidebar', {
 						</div>`
 });
 
-Vue.component('MovieDetail', {
-	template: ``
+Vue.component('MovieCast', {
+	template: `<div class="movie__cast">
+							<div class="movie__cast--person">
+								<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/Ao3fp9f4loVQ1Vvk6ph8HU5p0Lu.jpg" alt="profile" />
+								<h4>Kevin Conroy</h4>
+								<span>Terence 'Terry' McGinnis / Batman</span>
+							</div>
+							<div class="movie__cast--person">
+								<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/Ao3fp9f4loVQ1Vvk6ph8HU5p0Lu.jpg" alt="profile" />
+								<h4>Kevin Conroy</h4>
+								<span>Terence 'Terry' McGinnis / Batman</span>
+							</div>
+							<div class="movie__cast--person">
+								<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/Ao3fp9f4loVQ1Vvk6ph8HU5p0Lu.jpg" alt="profile" />
+								<h4>Kevin Conroy</h4>
+								<span>Terence 'Terry' McGinnis / Batman</span>
+							</div>
+							<div class="movie__cast--person">
+								<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/Ao3fp9f4loVQ1Vvk6ph8HU5p0Lu.jpg" alt="profile" />
+								<h4>Kevin Conroy</h4>
+								<span>Terence 'Terry' McGinnis / Batman</span>
+							</div>
+							<div class="movie__cast--person">
+								<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/Ao3fp9f4loVQ1Vvk6ph8HU5p0Lu.jpg" alt="profile" />
+								<h4>Kevin Conroy</h4>
+								<span>Terence 'Terry' McGinnis / Batman</span>
+							</div>
+							<div class="movie__cast--person">
+								<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/Ao3fp9f4loVQ1Vvk6ph8HU5p0Lu.jpg" alt="profile" />
+								<h4>Kevin Conroy</h4>
+								<span>Terence 'Terry' McGinnis / Batman</span>
+							</div>
+							<div class="movie__cast--person">
+								<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/Ao3fp9f4loVQ1Vvk6ph8HU5p0Lu.jpg" alt="profile" />
+								<h4>Kevin Conroy</h4>
+								<span>Terence 'Terry' McGinnis / Batman</span>
+							</div>
+							<div class="movie__cast--person">
+								<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/Ao3fp9f4loVQ1Vvk6ph8HU5p0Lu.jpg" alt="profile" />
+								<h4>Kevin Conroy</h4>
+								<span>Terence 'Terry' McGinnis / Batman</span>
+							</div>
+							<div class="movie__cast--person">
+								<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/Ao3fp9f4loVQ1Vvk6ph8HU5p0Lu.jpg" alt="profile" />
+								<h4>Kevin Conroy</h4>
+								<span>Terence 'Terry' McGinnis / Batman</span>
+							</div>
+							<div class="movie__cast--person">
+								<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/Ao3fp9f4loVQ1Vvk6ph8HU5p0Lu.jpg" alt="profile" />
+								<h4>Kevin Conroy</h4>
+								<span>Terence 'Terry' McGinnis / Batman</span>
+							</div>
+							<div class="movie__cast--person">
+								<img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/Ao3fp9f4loVQ1Vvk6ph8HU5p0Lu.jpg" alt="profile" />
+								<h4>Kevin Conroy</h4>
+								<span>Terence 'Terry' McGinnis / Batman</span>
+							</div>
+						</div>`
 });
 
 // <MovieReviews v-if="tab"></MovieReviews>
@@ -218,7 +274,7 @@ Vue.component('MovieContent', {
 									<button :class="tab === 3 ? 'b-b' : null" @click="handleTab(3)">Videos</button>
 								</div>
 								<div class="tab__content">
-									<div v-if="tab === 1">1</div>
+									<MovieCast v-if="tab === 1"></MovieCast>
 									<div v-else-if="tab === 2">2</div>
 									<div v-else>3</div>
 								</div>
