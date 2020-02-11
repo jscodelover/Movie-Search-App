@@ -168,14 +168,6 @@ Vue.component('MovieSidebar', {
 								<h3>Run time</h3>
 								<span>2h 20m</span>
 							</div>
-							<div class="movie__sidebar--items">
-								<h3>Genres</h3>
-								<div class="genres">
-								<span>Action</span>
-								<span>Adventure</span>
-								<span>Science Fiction</span>
-								</div>
-							</div>
 							<div class="movie__sidebar--items ">
 								<h3>Budget</h3>
 								<span>2,89,343</span>
@@ -187,6 +179,14 @@ Vue.component('MovieSidebar', {
 							<div class="movie__sidebar--items ">
 								<h3>Production Campany</h3>
 								<span>xyz</span>
+							</div>
+							<div class="movie__sidebar--items">
+								<h3>Genres</h3>
+								<div class="genres">
+								<span>Action</span>
+								<span>Adventure</span>
+								<span>Science Fiction</span>
+								</div>
 							</div>
 						</div>`
 });

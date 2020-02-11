@@ -405,6 +405,18 @@ $transition-length: 1s;
 				color: white;
 				border-radius: 5px;
 			}
+			@media (max-width: 896px) {
+				justify-content: center;
+			}
+		}
+	}
+	@media (max-width: 896px) {
+		display: grid;
+		grid-gap: 20px;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		justify-items: center;
+		&--items {
+			text-align: center;
 		}
 	}
 }
