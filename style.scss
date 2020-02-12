@@ -441,11 +441,24 @@ $transition-length: 1s;
 
 .movie__cast {
 	display: grid;
-	grid-gap: 20px;
+	grid-gap: 30px;
 	grid-template-columns: repeat(auto-fit, 160px);
 	justify-items: center;
+	justify-content: center;
 	&--person {
 		background-color: white;
 		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+		& > h4 {
+			font-weight: 600;
+			font-size: 18px;
+			padding: 7px 10px 0px;
+			color: #4b8870;
+		}
+		& > span {
+			font-size: 14px;
+			display: inline-block;
+			line-height: 16px;
+			padding: 0 9px;
+		}
 	}
 }
