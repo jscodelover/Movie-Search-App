@@ -462,3 +462,35 @@ $transition-length: 1s;
 		}
 	}
 }
+
+.movie__reviews {
+	&--post {
+		margin-bottom: 50px;
+		padding: 30px 40px;
+		display: flex;
+		justify-content: space-between;
+		& > span {
+			flex: 0 0 10%;
+			padding-top: 7px;
+		}
+
+		background-color: white;
+		box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+		.review__content {
+			flex: 0 0 80%;
+			&--text {
+			}
+		}
+		@media (max-width: 528px) {
+			& > span {
+				flex: 0 0 13%;
+			}
+			.review__content {
+				flex: 0 0 77%;
+			}
+		}
+	}
+	@media (max-width: 528px) {
+		padding: 20px 25px;
+	}
+}

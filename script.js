@@ -254,6 +254,49 @@ Vue.component('MovieCast', {
 // <MovieReviews v-if="tab"></MovieReviews>
 // <MovieMember v-else></MovieMember>
 
+Vue.component('MovieReview', {
+	template: `<div class="movie__reviews">
+							<div class="movie__reviews--post review">
+								<span>
+								<img src="/images/frame.png" alt="avatar" />
+								</span>
+								<div class="review__content">
+									<h3 class="font-bold text-xl">A review by msbreviews</h3>
+									<p class="text-sm mb-6">
+										<span>Written by msbreviews on</span>
+										<span>November 26, 2019</span>
+									</p>
+									<div class="review__content--text">
+										<p class="text-base">The kingdom of Arendelle needs to be evacuated when the forces of nature threaten to destroy it. Elsa, Anna, Olaf and Kristoff set off to find some answers. But Elsa has been distracted. She has been hearing an unfamiliar voice calling out to her in a strange tune. Led by her, the group follows the melody to find themselves at the edge of an Enchanted Forest with untold mysteries and dangers... <a href="#" class="text-green-600">read the rest</a></p>
+
+									</div>
+								</div>
+							</div>
+							<div class="movie__reviews--post review">
+							<span>
+							<img src="/images/frame.png" alt="avatar" />
+							</span>
+							<div class="review__content">
+								<h3 class="font-bold text-xl">A review by msbreviews</h3>
+								<p class="text-sm mb-6">
+									<span>Written by msbreviews on</span>
+									<span>November 26, 2019</span>
+								</p>
+								<div class="review__content--text">
+									<p class="text-base">The kingdom of Arendelle needs to be evacuated when the forces of nature threaten to destroy it. Elsa, Anna, Olaf and Kristoff set off to find some answers. But Elsa has been distracted. She has been hearing an unfamiliar voice calling out to her in a strange tune. Led by her, the group follows the melody to find themselves at the edge of an Enchanted Forest with untold mysteries and dangers... <a href="#" class="text-green-600">read the rest</a></p>
+								</div>
+							</div>
+						</div>
+
+
+
+
+
+
+
+						</div>`
+});
+
 Vue.component('MovieContent', {
 	data() {
 		return {
@@ -275,7 +318,7 @@ Vue.component('MovieContent', {
 								</div>
 								<div class="tab__content">
 									<MovieCast v-if="tab === 1"></MovieCast>
-									<div v-else-if="tab === 2">2</div>
+									<MovieReview v-else-if="tab === 2"></MovieReview>
 									<div v-else>3</div>
 								</div>
 							</div>
