@@ -1,4 +1,6 @@
 button,
+video,
+div,
 input {
 	&:focus {
 		outline: none;
@@ -472,25 +474,35 @@ $transition-length: 1s;
 		& > span {
 			flex: 0 0 10%;
 			padding-top: 7px;
+			img {
+				width: 60px;
+			}
 		}
 
 		background-color: white;
 		box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
 		.review__content {
 			flex: 0 0 80%;
-			&--text {
-			}
 		}
 		@media (max-width: 528px) {
+			padding: 25px 30px;
 			& > span {
 				flex: 0 0 13%;
+				min-width: 25px;
 			}
 			.review__content {
 				flex: 0 0 77%;
 			}
 		}
 	}
-	@media (max-width: 528px) {
-		padding: 20px 25px;
+}
+
+.movie__video {
+	.video-js:hover .vjs-big-play-button,
+	.vjs-custom-skin > .video-js .vjs-big-play-button:focus,
+	.vjs-custom-skin > .video-js .vjs-big-play-button:active,
+	.vjs-custom-skin > .video-js .vjs-play-progress,
+	.vjs-custom-skin > .video-js .vjs-volume-level {
+		background-color: #d00d0d;
 	}
 }
