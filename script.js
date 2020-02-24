@@ -9,20 +9,20 @@ Vue.component('Card', {
 			type: Boolean,
 			required: true
 		},
+		card: {
+			type: Object,
+			required: true
+		},
 		id: {
 			type: Number
 		}
 	},
 	template: `<div class="card" :class="flipCard? 'flip-card' : '' ">
 							<div class="card__side card__side--front">
-								<img 
-									class="card__img"
-									src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
-									alt="poster" 
-								/>
+								<div class="card__img" :style="getPoster"></div>
 								<div class="card__content--front">
-									<h1 class="text-xl text-center text-green-800 tracking-wide">Once Upon a Time… in Hollywood</h1>
-									<ProgressBar></ProgressBar>
+									<h1 class="text-xl text-center text-green-800 tracking-wide">{{card.title}}</h1>
+									<ProgressBar :rating="card.vote_average * 10"></ProgressBar>
 								</div>
 								<button class="card__menu" v-on:click="handleMenu(id)">
 									<img 
@@ -54,7 +54,7 @@ Vue.component('Card', {
 							<div class="card__side card__side--back">
 								<div class="card__content--back">
 									<h2 class="text-center">Overview</h2>
-									<div class="overview"><p>During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure. During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure. During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.</p></div>
+									<div class="overview"><p>{{card.overview}}</p></div>
 									<div class="back-btn-action">	
 										<button>Read More</button>
 										<button v-on:click="handleMenu(null)">Back</button>
@@ -68,6 +68,18 @@ Vue.component('Card', {
 	methods: {
 		handleMenu(id) {
 			this.$emit('clicked', id);
+		}
+	},
+	computed: {
+		getPoster() {
+			console.log({
+				backgroundImage: `${IMAGE_MD}${this.card.backdrop_path}`,
+				backgroundPosition: 'top center'
+			});
+			return {
+				backgroundImage: 'url(' + `${IMAGE_MD}${this.card.backdrop_path}` + ')',
+				backgroundPosition: 'top center'
+			};
 		}
 	}
 });
@@ -94,7 +106,8 @@ Vue.component('Inputbox', {
 });
 
 Vue.component('ProgressBar', {
-	template: `<div class="progress-circle" data-progress="40">
+	props: ['rating'],
+	template: `<div class="progress-circle" :data-progress="rating">
 							<div class="circle">
 									<div class="full progress-circle__slice">
 											<div class="progress-circle__fill progress-circle__fill--green"></div>
@@ -104,7 +117,7 @@ Vue.component('ProgressBar', {
 											<div class="progress-circle__fill progress-circle__fill--green progress-circle__bar"></div>
 									</div>
 							</div>
-							<div class="progress-circle__overlay"><span class="progress font-mono text-base">80%</span></div>
+							<div class="progress-circle__overlay"><span class="progress font-mono text-base">{{rating}}%</span></div>
 						</div>`
 });
 
@@ -433,7 +446,7 @@ const Home = Vue.component('Home', {
 	template: `<div class="content">
 							<Inputbox @storeMD="movieToStore"></Inputbox>
 							<div v-if="initial || cards.length" class="card-container">
-								<Card v-for="(card, index) in cards" :key="card.id" :id="index" :flipCard="flipCard === index" @clicked="handleClick"></Card> 
+								<Card v-for="(card, index) in cards" :key="card.id" :id="index" :card="card" :flipCard="flipCard === index" @clicked="handleClick"></Card> 
 							</div>
 							<div v-else class="text-center italic font-bold text-sm">There are no movies that matched your query.</div>
 						</div>`,

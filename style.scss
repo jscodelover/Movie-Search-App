@@ -74,8 +74,10 @@ footer {
 			&--front {
 				.card__img {
 					height: 215px;
-					width: 100%;
-					object-fit: cover;
+					background-position: center;
+					background-image: linear-gradient(to bottom left, #00000069, transparent),
+						url(/images/image.png);
+					background-repeat: no-repeat;
 				}
 			}
 			&--back {
