@@ -1,3 +1,7 @@
+const IMAGE_SM = 'https://image.tmdb.org/t/p/w185_and_h278_bestv2/';
+const IMAGE_LG = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
+const IMAGE_MD = 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/';
+
 // Vue Component
 Vue.component('Card', {
 	props: {
@@ -13,7 +17,7 @@ Vue.component('Card', {
 							<div class="card__side card__side--front">
 								<img 
 									class="card__img"
-									src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" 
+									src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
 									alt="poster" 
 								/>
 								<div class="card__content--front">
@@ -70,10 +74,23 @@ Vue.component('Card', {
 
 Vue.component('Inputbox', {
 	template: `<div class="search-container">
-							<input type="text" placeholder="Search for a movie" />
-							<button class="bg-green-500 w-28 tracking-wider
-							 hover:bg-green-700 text-white py-2 px-4 rounded ml-4">Search</button>
-						</div>`
+							<input v-model="movieName" type="text" placeholder="Search for a movie" />
+							<button class=" w-28 tracking-wider text-white py-2 px-4 rounded ml-4"
+							 :class="movieName ? 'bg-green-500 hover:bg-green-700' : 'cursor-not-allowed bg-gray-400'"
+							 @click="searchMovie">Search</button>
+						</div>`,
+	data() {
+		return {
+			movieName: ''
+		};
+	},
+	methods: {
+		searchMovie() {
+			if (this.movieName.trim()) {
+				getMovie(this.movieName).then(data => this.$emit('storeMD', data.results));
+			}
+		}
+	}
 });
 
 Vue.component('ProgressBar', {
@@ -414,20 +431,26 @@ Vue.component('MovieContent', {
 // vue router
 const Home = Vue.component('Home', {
 	template: `<div class="content">
-							<Inputbox></Inputbox>
-							<div class="card-container">
-								<Card v-for="(card, index) in cards" :key="card" :id="index" :flipCard="flipCard === index" @clicked="handleClick"></Card> 
+							<Inputbox @storeMD="movieToStore"></Inputbox>
+							<div v-if="initial || cards.length" class="card-container">
+								<Card v-for="(card, index) in cards" :key="card.id" :id="index" :flipCard="flipCard === index" @clicked="handleClick"></Card> 
 							</div>
+							<div v-else class="text-center italic font-bold text-sm">There are no movies that matched your query.</div>
 						</div>`,
 	data() {
 		return {
 			flipCard: null,
-			cards: [1, 2, 3, 4]
+			cards: [],
+			initial: true
 		};
 	},
 	methods: {
 		handleClick(id) {
 			this.flipCard = id;
+		},
+		movieToStore(movies) {
+			this.initial && (this.initial = false);
+			this.cards = [...movies];
 		}
 	}
 });
@@ -451,14 +474,17 @@ Vue.use(VueVideoPlayer);
 // Vue instance
 new Vue({
 	el: '#root',
+	data: {
+		movieData: ''
+	},
 	router,
 	template: `<div>	
 							<router-link to="/">Home</router-link>
 							<router-link to="/movie/:id">Movie</router-link>
 							<router-view></router-view>
-						</div>`
+						</div>`,
+	methods: {}
 });
 
-getMovie('joker').then(data => console.log(data));
 getGenre().then(data => console.log(data));
 postRating('133792', { value: 8.5 }).then(data => console.log(data));
