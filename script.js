@@ -51,12 +51,12 @@ Vue.component('Card', {
 									</a>	
 								</div>
 							</div>
-							<div class="card__side card__side--back">
+							<div class="card__side card__side--back" :style="back_bg">
 								<div class="card__content--back">
 									<h2 class="text-center">Overview</h2>
-									<div class="overview"><p>{{card.overview}}</p></div>
+									<div class="overview"><p>{{card.overview || "We don't have an overview translated in English"}}</p></div>
 									<div class="back-btn-action">	
-										<button>Read More</button>
+										<button v-on:click="showMovieDetail">Read More</button>
 										<button v-on:click="handleMenu(null)">Back</button>
 									</div>
 								</div>
@@ -68,17 +68,26 @@ Vue.component('Card', {
 	methods: {
 		handleMenu(id) {
 			this.$emit('clicked', id);
+		},
+		showMovieDetail() {
+			this.$router.push({ path: `/movie/${this.card.id}` });
 		}
 	},
 	computed: {
 		getPoster() {
-			console.log({
-				backgroundImage: `${IMAGE_MD}${this.card.backdrop_path}`,
-				backgroundPosition: 'top center'
-			});
+			return this.card.backdrop_path
+				? {
+						backgroundImage: 'url(' + `${IMAGE_MD}${this.card.backdrop_path}` + ')',
+						backgroundPosition: 'top center'
+				  }
+				: null;
+		},
+		back_bg() {
 			return {
-				backgroundImage: 'url(' + `${IMAGE_MD}${this.card.backdrop_path}` + ')',
-				backgroundPosition: 'top center'
+				backgroundImage:
+					'linear-gradient(45deg, rgba(187, 187, 187, 0.6784313725490196), rgba(255, 255, 255, 0.63)), url(' +
+					`${IMAGE_MD}${this.card.backdrop_path}` +
+					')'
 			};
 		}
 	}
@@ -86,10 +95,13 @@ Vue.component('Card', {
 
 Vue.component('Inputbox', {
 	template: `<div class="search-container">
-							<input v-model="movieName" type="text" placeholder="Search for a movie" />
-							<button class=" w-28 tracking-wider text-white py-2 px-4 rounded ml-4"
-							 :class="movieName ? 'bg-green-500 hover:bg-green-700' : 'cursor-not-allowed bg-gray-400'"
-							 @click="searchMovie">Search</button>
+							<form @submit.prevent ="searchMovie"> 
+								<input v-model="movieName" type="text" placeholder="Search for a movie" />
+								<button type="submit" class=" w-28 tracking-wider text-white py-2 px-4 rounded ml-4"
+								:class="movieName ? 'bg-green-500 hover:bg-green-700' : 'cursor-not-allowed bg-gray-400'">
+								Search
+								</button>
+							 </form>
 						</div>`,
 	data() {
 		return {
@@ -100,6 +112,7 @@ Vue.component('Inputbox', {
 		searchMovie() {
 			if (this.movieName.trim()) {
 				getMovie(this.movieName).then(data => this.$emit('storeMD', data.results));
+				this.movieName = '';
 			}
 		}
 	}
@@ -491,13 +504,12 @@ new Vue({
 		movieData: ''
 	},
 	router,
-	template: `<div>	
-							<router-link to="/">Home</router-link>
-							<router-link to="/movie/:id">Movie</router-link>
-							<router-view></router-view>
-						</div>`,
+	template: `	<router-view></router-view>`,
 	methods: {}
 });
 
 getGenre().then(data => console.log(data));
 postRating('133792', { value: 8.5 }).then(data => console.log(data));
+
+// <router-link to="/">Home</router-link>
+// <router-link to="/movie/:id">Movie</router-link>
