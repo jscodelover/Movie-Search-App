@@ -2,6 +2,11 @@ const IMAGE_SM = 'https://image.tmdb.org/t/p/w185_and_h278_bestv2/';
 const IMAGE_LG = 'https://image.tmdb.org/t/p/w1400_and_h450_face/';
 const IMAGE_MD = 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/';
 
+// common component
+Vue.component('Loader', {
+	template: `	<div class="loader"></div>`
+});
+
 // Vue Component
 Vue.component('Card', {
 	props: {
@@ -501,10 +506,13 @@ Vue.use(VueVideoPlayer);
 new Vue({
 	el: '#root',
 	data: {
-		movieData: ''
+		loading: false
 	},
 	router,
-	template: `	<router-view></router-view>`,
+	template: `<div>
+							
+							<router-view></router-view>
+						</div>`,
 	methods: {}
 });
 
