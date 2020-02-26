@@ -1,7 +1,10 @@
 <template>
 	<div class="content">
 		<Inputbox @storeMD="movieToStore" />
-		<div v-if="initial || cards.length" class="card-container">
+		<div
+			v-if="initial || cards.length"
+			:class="cards.length ? 'card-container' : ''"
+		>
 			<Card
 				v-for="(card, index) in cards"
 				:key="card.id"
@@ -21,6 +24,7 @@
 // @ is an alias to /src
 import Inputbox from '@/components/Inputbox.vue';
 import Card from '@/components/Card.vue';
+import { topMovies } from '@/utils/https.service';
 
 export default {
 	name: 'Home',
@@ -35,13 +39,16 @@ export default {
 			initial: true
 		};
 	},
+	created() {
+		topMovies().then(result => console.log(result));
+	},
 	methods: {
 		handleClick(id) {
 			this.flipCard = id;
 		},
-		movieToStore(movies) {
+		movieToStore(movieList) {
 			this.initial && (this.initial = false);
-			this.cards = [...movies];
+			this.cards = [...movieList];
 		}
 	}
 };
