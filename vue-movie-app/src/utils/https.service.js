@@ -51,9 +51,21 @@ async function postRating(movie_id, rating) {
 	}
 }
 
+async function getTopMovies() {
+	try {
+		const response = await fetch(
+			`https://api.themoviedb.org/3/movie/top_rated?api_key=${api_key}&language=en-US&page=1`
+		);
+		const data = await response.json();
+		return data;
+	} catch (e) {
+		return { error: 'Something went wrong.', e };
+	}
+}
+
 // get image path
 function getImagePath() {
 	return image_path;
 }
 
-export { getMovie, getGenre, postRating, getImagePath };
+export { getMovie, getGenre, postRating, getImagePath, getTopMovies };
