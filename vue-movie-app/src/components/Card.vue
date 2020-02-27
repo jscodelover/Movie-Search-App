@@ -37,7 +37,7 @@
 </template>
 
 <script>
-// const IMAGE_MD = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/";
+import CONFIG from "@/utils/config";
 export default {
   name: "Card",
   props: {
@@ -65,14 +65,14 @@ export default {
     getPoster() {
       return this.card.backdrop_path
         ? {
-            backgroundImage: `url(https://image.tmdb.org/t/p/w500_and_h282_face/${this.card.backdrop_path})`
+            backgroundImage: `url(${CONFIG.IMAGE_LANDSCAPE}${this.card.backdrop_path})`
           }
         : null;
     },
     back_bg() {
       return {
         backgroundImage: `linear-gradient(45deg, rgba(187, 187, 187, 0.67), rgba(255, 255, 255, 0.63)), url(
-          https://image.tmdb.org/t/p/w370_and_h556_bestv2/${this.card.backdrop_path}
+          ${CONFIG.IMAGE_POSTER}${this.card.backdrop_path}
 					)`,
         backgroundSize: "cover"
       };
