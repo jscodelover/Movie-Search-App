@@ -63,9 +63,4 @@ async function getTopMovies() {
 	}
 }
 
-// get image path
-function getImagePath() {
-	return image_path;
-}
-
-export { getMovie, getGenre, postRating, getImagePath, getTopMovies };
+export { getMovie, getGenre, postRating, getTopMovies };

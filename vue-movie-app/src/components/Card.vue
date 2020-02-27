@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import ProgressBar from "@/components/ProgressBar.vue";
 import CONFIG from "@/utils/config";
 export default {
   name: "Card",
@@ -52,6 +53,9 @@ export default {
     id: {
       type: Number
     }
+  },
+  components: {
+    ProgressBar
   },
   methods: {
     handleMenu(id) {
