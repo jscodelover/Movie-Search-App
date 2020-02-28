@@ -16,7 +16,9 @@
 </template>
 
 <script>
-import { getMovie } from "@/utils/https.service";
+import REQUEST from "@/utils/https.service";
+import CONFIG from "@/utils/config.js";
+
 export default {
   name: "Inputbox",
   data() {
@@ -25,12 +27,18 @@ export default {
     };
   },
   methods: {
-    searchMovie() {
-      if (this.movieName.trim()) {
-        getMovie(this.movieName).then(data =>
-          this.$emit("storeMD", data.results)
-        );
-        this.movieName = "";
+    async searchMovie() {
+      try {
+        if (this.movieName.trim()) {
+          const { status, data } = await REQUEST({
+            method: "get",
+            url: `https://api.themoviedb.org/3/search/movie?api_key=${CONFIG.API_KEY}&language=en-US&query=${this.movieName}&page=1&include_adult=false`
+          });
+          this.$emit("storeMD", status === 200 ? data.results : []);
+          this.movieName = "";
+        }
+      } catch (e) {
+        console.log(e);
       }
     }
   }

@@ -22,7 +22,8 @@
 // @ is an alias to /src
 import Inputbox from "@/components/Inputbox.vue";
 import Card from "@/components/Card.vue";
-import { getTopMovies } from "@/utils/https.service";
+import REQUEST from "@/utils/https.service";
+import CONFIG from "@/utils/config.js";
 
 export default {
   name: "Home",
@@ -38,8 +39,16 @@ export default {
       topMovies: []
     };
   },
-  created() {
-    getTopMovies().then(data => (this.topMovies = data.results));
+  async created() {
+    try {
+      const { status, data } = await REQUEST({
+        method: "get",
+        url: `https://api.themoviedb.org/3/movie/top_rated?api_key=${CONFIG.API_KEY}&language=en-US&page=1`
+      });
+      this.topMovies = status === 200 ? data.results : [];
+    } catch (e) {
+      console.log(e);
+    }
   },
   computed: {
     cardData() {
