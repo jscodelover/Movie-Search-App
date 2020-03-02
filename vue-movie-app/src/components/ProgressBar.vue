@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 $circle-size: 60px;
 $circle-background: #d9d9d9;
 $inset-size: 48px;

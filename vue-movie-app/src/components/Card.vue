@@ -67,9 +67,9 @@ export default {
   },
   computed: {
     getPoster() {
-      return this.card.backdrop_path
+      return this.card.poster_path
         ? {
-            backgroundImage: `url(${CONFIG.IMAGE_LANDSCAPE}${this.card.backdrop_path})`
+            backgroundImage: `url(${CONFIG.IMAGE_LANDSCAPE}${this.card.poster_path})`
           }
         : null;
     },
@@ -151,6 +151,7 @@ export default {
         padding: 20px 20px 66px;
         height: 100%;
         position: relative;
+        color: black;
         .overview {
           display: flex;
           align-items: center;
