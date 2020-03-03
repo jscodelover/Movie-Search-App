@@ -2,11 +2,11 @@
   <div class="progress-circle" :data-progress="rating">
     <div class="circle">
       <div class="full progress-circle__slice">
-        <div class="progress-circle__fill progress-circle__fill--green"></div>
+        <div :class="className()"></div>
       </div>
       <div class="progress-circle__slice">
-        <div class="progress-circle__fill progress-circle__fill--green"></div>
-        <div class="progress-circle__fill progress-circle__fill--green progress-circle__bar"></div>
+        <div :class="className()"></div>
+        <div :class="className('progress-circle__bar')"></div>
       </div>
     </div>
     <div class="progress-circle__overlay">
@@ -23,11 +23,28 @@ export default {
       type: Number,
       required: true
     }
+  },
+  data() {
+    return {
+      colors: ["red", "yellow", "green"]
+    };
+  },
+  computed: {
+    className() {
+      let color = "";
+      if (this.rating > 9 && this.rating < 40) {
+        color = this.colors[0];
+      } else if (this.rating >= 40 && this.rating < 70) color = this.colors[1];
+      else color = this.colors[2];
+      console.log;
+      return otherClasses =>
+        `progress-circle__fill progress-circle__fill--${color} ${otherClasses}`;
+    }
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 $circle-size: 60px;
 $circle-background: #d9d9d9;
 $inset-size: 48px;

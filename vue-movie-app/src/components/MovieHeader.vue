@@ -1,10 +1,10 @@
 <template>
   <div class="movie__header" :style="styles">
-    <span :class="!movieData.backdrop_path ? 'posterCover' : '' ">
+    <span :class="!movieData.backdrop_path ? 'posterCover poster' : 'poster' ">
       <img class="movie__header--poster" :src="poster" alt="poster" />
     </span>
     <div class="movie__header--content">
-      <h1 class="text-left">
+      <h1 class="title">
         <span class="text-3xl font-bold">{{ movieData.title }}</span>
         <span class="text-2xl tracking-wider text-gray-400">({{ release_year }})</span>
       </h1>
@@ -96,6 +96,9 @@ export default {
   background-size: cover;
   background-position: 50% 50%;
   background-repeat: no-repeat;
+  .poster {
+    margin: 0 auto;
+  }
   .posterCover {
     width: 300px;
     height: 450px;
@@ -115,6 +118,12 @@ export default {
 
   &--content {
     color: white;
+    .title {
+      text-align: left;
+      @media (max-width: 968px) {
+        text-align: center;
+      }
+    }
     @media (max-width: 968px) {
       margin-top: 30px;
       justify-self: center;
@@ -123,6 +132,7 @@ export default {
     .movie__action {
       margin: 30px 0;
       display: grid;
+
       grid-template-columns: repeat(auto-fit, 107px);
       align-items: center;
       justify-items: left;
@@ -141,9 +151,9 @@ export default {
         align-items: center;
         .progress-circle {
           margin: initial;
-        }
-        .progress-circle__overlay {
-          background-color: #438769;
+          &__overlay {
+            background-color: #438769;
+          }
         }
         & > span {
           margin-left: 10px;
