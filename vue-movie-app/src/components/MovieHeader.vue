@@ -4,9 +4,9 @@
       <img class="movie__header--poster" :src="poster" alt="poster" />
     </span>
     <div class="movie__header--content">
-      <h1 class="title">
+      <h1>
         <span class="text-3xl font-bold">{{ movieData.title }}</span>
-        <span class="text-2xl tracking-wider text-gray-400">({{ release_year }})</span>
+        <span class="text-2xl tracking-wider text-black">{{' '}}({{ release_year }})</span>
       </h1>
       <div class="movie__action">
         <div class="movie__action--score">
@@ -27,27 +27,27 @@
         <h2 class="font-semibold">Overview</h2>
         <p class="text-base mt-2 text-justify">{{ movieData.overview }}</p>
       </div>
-      <h2 class="mt-8 mb-2 font-semibold">Featured Crew</h2>
-      <div class="crew-container">
+      <h2 v-if="Boolean(crew.length)" class="mt-8 mb-2 font-semibold">Featured Crew</h2>
+      <div v-if="Boolean(crew.length)" class="crew-container">
         <div class="crew">
           <h3>James Gray James Gray James Gray</h3>
-          <span>Director, Screenplay</span>
+          <span class="text-black">Director, Screenplay</span>
         </div>
         <div class="crew">
           <h3>James Gray</h3>
-          <span>Director, Screenplay</span>
+          <span class="text-black">Director, Screenplay</span>
         </div>
         <div class="crew">
           <h3>James Gray James Gray</h3>
-          <span>Director, Screenplay</span>
+          <span class="text-black">Director, Screenplay</span>
         </div>
         <div class="crew">
           <h3>James Gray</h3>
-          <span>Director, Screenplay</span>
+          <span class="text-black">Director, Screenplay</span>
         </div>
         <div class="crew">
           <h3>James Gray</h3>
-          <span>Director, Screenplay</span>
+          <span class="text-black">Director, Screenplay</span>
         </div>
       </div>
     </div>
@@ -56,15 +56,21 @@
 
 <script>
 import ProgressBar from "@/components/ProgressBar.vue";
+import REQUEST from "@/utils/https.service";
 import CONFIG from "@/utils/config.js";
 export default {
   name: "MovieHeader",
   components: { ProgressBar },
   props: ["movieData"],
-  date() {
+  data() {
     return {
-      movie_images: {}
+      movie_images: {},
+      cast: [],
+      crew: []
     };
+  },
+  mounted() {
+    this.getCastCrew();
   },
   computed: {
     release_year() {
@@ -79,8 +85,24 @@ export default {
     },
     styles() {
       return {
-        backgroundImage: `radial-gradient(circle at 20% 50%, #48bb77f2 0%, rgba(68, 85, 101, 0.88) 100%), url(${CONFIG.IMAGE_LG}${this.movieData.backdrop_path})`
+        backgroundImage: `radial-gradient(circle at 20% 50%, rgba(72, 187, 119, 0.81) 0%, rgba(68, 85, 101, 0.89) 100%), url(${CONFIG.IMAGE_LG}${this.movieData.backdrop_path})`
       };
+    }
+  },
+  methods: {
+    async getCastCrew() {
+      try {
+        if (this.$route.params.id) {
+          const { status, data } = await REQUEST({
+            method: "get",
+            url: `https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=${CONFIG.API_KEY}`
+          });
+          this.cast = status === 200 ? data.cast : [];
+          this.crew = status === 200 ? data.crew : [];
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };
@@ -97,13 +119,16 @@ export default {
   background-position: 50% 50%;
   background-repeat: no-repeat;
   .poster {
-    margin: 0 auto;
+    margin: 8px auto;
+    .movie__header--poster {
+      box-shadow: 5px 5px 15px #00000045;
+    }
   }
   .posterCover {
     width: 300px;
     height: 450px;
-    box-shadow: 5px 5px 15px #00000045;
     background-color: #dbdbdb;
+    box-shadow: 5px 5px 15px #00000045;
     .movie__header--poster {
       width: 200px;
       height: 200px;
@@ -118,12 +143,6 @@ export default {
 
   &--content {
     color: white;
-    .title {
-      text-align: left;
-      @media (max-width: 968px) {
-        text-align: center;
-      }
-    }
     @media (max-width: 968px) {
       margin-top: 30px;
       justify-self: center;
@@ -174,7 +193,6 @@ export default {
       .crew {
         line-height: 17px;
         & > h3 {
-          font-weight: 600;
           font-size: 1rem;
         }
         & > span {

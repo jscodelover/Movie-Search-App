@@ -18,7 +18,6 @@
 <script>
 import REQUEST from "@/utils/https.service";
 import CONFIG from "@/utils/config.js";
-
 export default {
   name: "Inputbox",
   data() {
