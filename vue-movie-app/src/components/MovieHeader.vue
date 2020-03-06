@@ -27,27 +27,11 @@
         <h2 class="font-semibold">Overview</h2>
         <p class="text-base mt-2 text-justify">{{ movieData.overview }}</p>
       </div>
-      <h2 v-if="Boolean(crew.length)" class="mt-8 mb-2 font-semibold">Featured Crew</h2>
-      <div v-if="Boolean(crew.length)" class="crew-container">
-        <div class="crew">
-          <h3>James Gray James Gray James Gray</h3>
-          <span class="text-black">Director, Screenplay</span>
-        </div>
-        <div class="crew">
-          <h3>James Gray</h3>
-          <span class="text-black">Director, Screenplay</span>
-        </div>
-        <div class="crew">
-          <h3>James Gray James Gray</h3>
-          <span class="text-black">Director, Screenplay</span>
-        </div>
-        <div class="crew">
-          <h3>James Gray</h3>
-          <span class="text-black">Director, Screenplay</span>
-        </div>
-        <div class="crew">
-          <h3>James Gray</h3>
-          <span class="text-black">Director, Screenplay</span>
+      <h2 v-if="Boolean(crewMember.length)" class="mt-8 mb-2 font-semibold">Featured Crew</h2>
+      <div v-if="Boolean(crewMember.length)" class="crew-container">
+        <div v-for="crew in featuredCrew" :key="crew.id" class="crew">
+          <h3>{{crew.name}}</h3>
+          <span class="text-black">{{crew.job}}</span>
         </div>
       </div>
     </div>
@@ -64,9 +48,8 @@ export default {
   props: ["movieData"],
   data() {
     return {
-      movie_images: {},
-      cast: [],
-      crew: []
+      castMember: [],
+      crewMember: []
     };
   },
   mounted() {
@@ -87,6 +70,14 @@ export default {
       return {
         backgroundImage: `radial-gradient(circle at 20% 50%, rgba(72, 187, 119, 0.81) 0%, rgba(68, 85, 101, 0.89) 100%), url(${CONFIG.IMAGE_LG}${this.movieData.backdrop_path})`
       };
+    },
+    featuredCrew() {
+      const filter_crew = this.crewMember.filter(
+        crew =>
+          crew.department === "Production" || crew.department === "Directing"
+      );
+      let feature_crew = this.getRandmonArray(filter_crew);
+      return feature_crew.length ? feature_crew : [];
     }
   },
   methods: {
@@ -97,12 +88,32 @@ export default {
             method: "get",
             url: `https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=${CONFIG.API_KEY}`
           });
-          this.cast = status === 200 ? data.cast : [];
-          this.crew = status === 200 ? data.crew : [];
+          this.castMember = status === 200 ? data.cast : [];
+          this.crewMember = status === 200 ? data.crew : [];
         }
       } catch (e) {
         console.log(e);
       }
+    },
+    getRandmonArray(array) {
+      let result = [];
+      if (array.length) {
+        for (let i = 0; i < 6; i++) {
+          let stop = false;
+          while (!stop) {
+            let randomNum = Math.floor(
+              Math.random() * Math.floor(array.length)
+            );
+            let id = array[randomNum].id;
+            if (result.findIndex(c => c.id === id) === -1) {
+              result.push(array[randomNum]);
+              stop = true;
+            }
+          }
+        }
+        return result;
+      }
+      return result;
     }
   }
 };
