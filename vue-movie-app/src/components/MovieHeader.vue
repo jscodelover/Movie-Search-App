@@ -6,7 +6,10 @@
     <div class="movie__header--content">
       <h1>
         <span class="text-3xl font-bold">{{ movieData.title }}</span>
-        <span class="text-2xl tracking-wider text-black">{{' '}}({{ release_year }})</span>
+        <span
+          v-if="release_year"
+          class="text-2xl tracking-wider text-black"
+        >{{' '}}({{ release_year }})</span>
       </h1>
       <div class="movie__action">
         <div class="movie__action--score">
@@ -25,7 +28,9 @@
       </div>
       <div>
         <h2 class="font-semibold">Overview</h2>
-        <p class="text-base mt-2 text-justify">{{ movieData.overview }}</p>
+        <p
+          class="text-base mt-2 text-justify"
+        >{{ movieData.overview || "We don't have an overview translated in English" }}</p>
       </div>
       <h2 v-if="Boolean(crewMember.length)" class="mt-8 mb-2 font-semibold">Featured Crew</h2>
       <div v-if="Boolean(crewMember.length)" class="crew-container">
