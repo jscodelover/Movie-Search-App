@@ -34,30 +34,34 @@
       </div>
       <h2 v-if="Boolean(crewMember.length)" class="mt-8 mb-2 font-semibold">Featured Crew</h2>
       <div v-if="Boolean(crewMember.length)" class="crew-container">
-        <div v-for="crew in featuredCrew" :key="crew.id" class="crew">
-          <h3>{{crew.name}}</h3>
-          <span class="text-black">{{crew.job}}</span>
-        </div>
+        <Fragment v-if="Boolean(crewMember.length)">
+          <div v-for="crew in featuredCrew" :key="crew.id" class="crew">
+            <h3>{{ crew.name}}</h3>
+            <span class="text-black">{{crew.job}}</span>
+          </div>
+        </Fragment>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { Fragment } from "vue-fragment";
 import ProgressBar from "@/components/ProgressBar.vue";
 import REQUEST from "@/utils/https.service";
 import CONFIG from "@/utils/config.js";
 export default {
   name: "MovieHeader",
-  components: { ProgressBar },
+  components: { ProgressBar, Fragment },
   props: ["movieData"],
   data() {
     return {
       castMember: [],
-      crewMember: []
+      crewMember: [],
+      featuredCrew: []
     };
   },
-  mounted() {
+  created() {
     this.getCastCrew();
   },
   computed: {
@@ -75,14 +79,6 @@ export default {
       return {
         backgroundImage: `radial-gradient(circle at 20% 50%, rgba(72, 187, 119, 0.81) 0%, rgba(68, 85, 101, 0.89) 100%), url(${CONFIG.IMAGE_LG}${this.movieData.backdrop_path})`
       };
-    },
-    featuredCrew() {
-      const filter_crew = this.crewMember.filter(
-        crew =>
-          crew.department === "Production" || crew.department === "Directing"
-      );
-      let feature_crew = this.getRandmonArray(filter_crew);
-      return feature_crew.length ? feature_crew : [];
     }
   },
   methods: {
@@ -95,29 +91,49 @@ export default {
           });
           this.castMember = status === 200 ? data.cast : [];
           this.crewMember = status === 200 ? data.crew : [];
+          this.getFeaturedCrew();
         }
       } catch (e) {
         console.log(e);
       }
     },
-    getRandmonArray(array) {
+    getFeaturedCrew() {
+      const filter_crew = this.crewMember.filter(
+        crew =>
+          crew.department === "Production" || crew.department === "Directing"
+      );
+      let fcrew = [];
+      if (filter_crew.length > 4) fcrew = this.getRandomArray(filter_crew);
+      else fcrew = filter_crew;
+      const reduced_featured_crew = fcrew.reduce((acc, crew) => {
+        return acc.concat(crew);
+      }, []);
+      this.featuredCrew = reduced_featured_crew.length
+        ? reduced_featured_crew
+        : [];
+    },
+    getRandomArrayIndex(length) {
       let result = [];
-      if (array.length) {
-        for (let i = 0; i < 6; i++) {
+      if (length) {
+        for (let i = 0; i < 4; i++) {
           let stop = false;
           while (!stop) {
-            let randomNum = Math.floor(
-              Math.random() * Math.floor(array.length)
-            );
-            let id = array[randomNum].id;
-            if (result.findIndex(c => c.id === id) === -1) {
-              result.push(array[randomNum]);
+            let randomNum = Math.floor(Math.random() * Math.floor(length));
+            if (result.findIndex(c => c === randomNum) === -1) {
+              result.push(randomNum);
               stop = true;
             }
           }
         }
-        return result;
       }
+      return result;
+    },
+    getRandomArray(filter_crew) {
+      const indexArray = this.getRandomArrayIndex(filter_crew.length);
+      const result = [];
+      indexArray.forEach(index => {
+        result.push(filter_crew[index]);
+      });
       return result;
     }
   }
