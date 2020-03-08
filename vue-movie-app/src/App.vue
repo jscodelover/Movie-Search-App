@@ -65,9 +65,6 @@ footer {
     }
   }
 }
-.b-b {
-  border-bottom: 4px solid #4b8870;
-}
 
 .content {
   min-height: calc(100vh - 237px);
