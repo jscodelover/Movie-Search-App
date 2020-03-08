@@ -105,8 +105,15 @@ export default {
       let fcrew = [];
       if (filter_crew.length > 4) fcrew = this.getRandomArray(filter_crew);
       else fcrew = filter_crew;
-      const reduced_featured_crew = fcrew.reduce((acc, crew) => {
-        return acc.concat(crew);
+      const reduced_featured_crew = fcrew.reduce((acc, crew, index) => {
+        const jobs = [crew.job];
+        for (let i = index + 1; i < fcrew.length; i++) {
+          if (fcrew[i].id === crew.id) {
+            jobs.push(fcrew[i].job);
+            fcrew.splice(i, 1);
+          }
+        }
+        return acc.concat({ ...crew, jobs });
       }, []);
       this.featuredCrew = reduced_featured_crew.length
         ? reduced_featured_crew
