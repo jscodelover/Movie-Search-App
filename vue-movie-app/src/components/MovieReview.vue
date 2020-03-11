@@ -1,41 +1,22 @@
 <template>
   <div class="movie__reviews">
-    <div class="movie__reviews--post review">
+    <div v-if="!reviews.length">{{content('-')}}</div>
+    <div v-for="review in reviews" :key="review.id" class="movie__reviews--post review">
       <span>
-        <img src="/images/frame.png" alt="avatar" />
+        <img src="../assets/frame.png" alt="avatar" />
       </span>
       <div class="review__content">
-        <h3 class="font-bold text-xl">A review by msbreviews</h3>
+        <h3 class="font-bold text-xl">{{getTitle(review.author)}}</h3>
         <p class="text-sm mb-6">
-          <span>Written by msbreviews on</span>
+          <span>{{writter(review.author)}}</span>
           <span>November 26, 2019</span>
         </p>
         <div class="review__content--text">
           <p class="text-base">
-            The kingdom of Arendelle needs to be evacuated when the forces of nature threaten to destroy it. Elsa, Anna, Olaf and Kristoff set off to find some answers. But Elsa has been distracted. She has been hearing an unfamiliar voice calling out to her in a strange tune. Led by her, the group follows the melody to find themselves at the edge of an Enchanted Forest with untold mysteries and dangers...
+            {{review.content || content('-')}}
             <a
-              href="#"
-              class="text-green-600"
-            >read the rest</a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="movie__reviews--post review">
-      <span>
-        <img src="/images/frame.png" alt="avatar" />
-      </span>
-      <div class="review__content">
-        <h3 class="font-bold text-xl">A review by msbreviews</h3>
-        <p class="text-sm mb-6">
-          <span>Written by msbreviews on</span>
-          <span>November 26, 2019</span>
-        </p>
-        <div class="review__content--text">
-          <p class="text-base">
-            The kingdom of Arendelle needs to be evacuated when the forces of nature threaten to destroy it. Elsa, Anna, Olaf and Kristoff set off to find some answers. But Elsa has been distracted. She has been hearing an unfamiliar voice calling out to her in a strange tune. Led by her, the group follows the melody to find themselves at the edge of an Enchanted Forest with untold mysteries and dangers...
-            <a
-              href="#"
+              v-if="review.content"
+              :href="review.url"
               class="text-green-600"
             >read the rest</a>
           </p>
@@ -46,8 +27,42 @@
 </template>
 
 <script>
+import REQUEST from "@/utils/https.service";
+import CONFIG from "@/utils/config.js";
 export default {
-  name: "MovieReview"
+  name: "MovieReview",
+  data() {
+    return {
+      reviews: []
+    };
+  },
+  created() {
+    this.getReviews();
+  },
+  computed: {
+    getTitle() {
+      return name => `A review by ${name}`;
+    },
+    writter() {
+      return name => `Written by ${name} on`;
+    },
+    content() {
+      return name => `We don't have any reviews for ${name}.`;
+    }
+  },
+  methods: {
+    async getReviews() {
+      try {
+        const { status, data } = await REQUEST({
+          method: "get",
+          url: `https://api.themoviedb.org/3/movie/${this.$route.params.id}/reviews?api_key=${CONFIG.API_KEY}&language=en-US&page=1`
+        });
+        this.reviews = status === 200 ? data.results : [];
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }
 };
 </script>
 
