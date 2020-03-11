@@ -48,7 +48,6 @@
 <script>
 import { Fragment } from "vue-fragment";
 import ProgressBar from "@/components/ProgressBar.vue";
-import REQUEST from "@/utils/https.service";
 import CONFIG from "@/utils/config.js";
 export default {
   name: "MovieHeader",
@@ -56,13 +55,13 @@ export default {
   props: ["movieData"],
   data() {
     return {
-      castMember: [],
-      crewMember: [],
       featuredCrew: []
     };
   },
-  created() {
-    this.getCastCrew();
+  watch: {
+    "$store.state.crewMember": function() {
+      this.featuredCrew = this.getFeaturedCrew();
+    }
   },
   computed: {
     release_year() {
@@ -79,26 +78,14 @@ export default {
       return {
         backgroundImage: `radial-gradient(circle at 20% 50%, rgba(72, 187, 119, 0.81) 0%, rgba(68, 85, 101, 0.89) 100%), url(${CONFIG.IMAGE_LG}${this.movieData.backdrop_path})`
       };
+    },
+    crewMember() {
+      return this.$store.state.crewMember;
     }
   },
   methods: {
-    async getCastCrew() {
-      try {
-        if (this.$route.params.id) {
-          const { status, data } = await REQUEST({
-            method: "get",
-            url: `https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=${CONFIG.API_KEY}`
-          });
-          this.castMember = status === 200 ? data.cast : [];
-          this.crewMember = status === 200 ? data.crew : [];
-          this.getFeaturedCrew();
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    },
     getFeaturedCrew() {
-      const filter_crew = this.crewMember.filter(
+      const filter_crew = this.$store.state.crewMember.filter(
         crew =>
           crew.department === "Production" || crew.department === "Directing"
       );
@@ -115,9 +102,7 @@ export default {
         }
         return acc.concat({ ...crew, jobs });
       }, []);
-      this.featuredCrew = reduced_featured_crew.length
-        ? reduced_featured_crew
-        : [];
+      return reduced_featured_crew.length ? reduced_featured_crew : [];
     },
     getRandomArrayIndex(length) {
       let result = [];

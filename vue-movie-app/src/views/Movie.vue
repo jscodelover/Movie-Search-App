@@ -20,15 +20,39 @@ export default {
       movieData: {}
     };
   },
-  async created() {
-    try {
-      const { status, data } = await REQUEST({
-        method: "get",
-        url: `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${CONFIG.API_KEY}&language=en-US`
-      });
-      this.movieData = status === 200 ? data : {};
-    } catch (e) {
-      console.log(e);
+  created() {
+    this.getMovieDetail();
+    this.getCastCrew();
+  },
+  methods: {
+    async getMovieDetail() {
+      try {
+        const { status, data } = await REQUEST({
+          method: "get",
+          url: `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${CONFIG.API_KEY}&language=en-US`
+        });
+        this.movieData = status === 200 ? data : {};
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async getCastCrew() {
+      try {
+        if (this.$route.params.id) {
+          const { status, data } = await REQUEST({
+            method: "get",
+            url: `https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=${CONFIG.API_KEY}`
+          });
+          this.$store.commit("updateCastMember", {
+            data: status === 200 ? data.cast : []
+          });
+          this.$store.commit("updateCrewMember", {
+            data: status === 200 ? data.crew : []
+          });
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 };
