@@ -7,7 +7,9 @@ export default new Vuex.Store({
 	state: {
 		topMovies: [],
 		castMember: [],
-		crewMember: []
+		crewMember: [],
+		movieName: '',
+		movieList: []
 	},
 	mutations: {
 		updateTopMovies(state, payload) {
@@ -18,6 +20,12 @@ export default new Vuex.Store({
 		},
 		updateCrewMember(state, payload) {
 			state.crewMember = payload.data;
+		},
+		setMovieName(state, payload) {
+			state.movieName = payload.data;
+		},
+		updateMovieList(state, payload) {
+			state.movieList = payload.data;
 		}
 	},
 	actions: {},

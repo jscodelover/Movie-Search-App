@@ -1,6 +1,6 @@
 <template>
   <div class="content bg-green-100 text-gray-700 text-xl">
-    <Inputbox @storeMD="movieToStore" />
+    <Inputbox @storeMD="movieToStore" :name="name" />
     <div v-if="initial || cardData.length" :class="cardData.length ? 'card-container' : ''">
       <Card
         v-for="(card, index) in cardData"
@@ -34,9 +34,7 @@ export default {
   data() {
     return {
       flipCard: null,
-      movieList: [],
-      initial: true,
-      topMovies: []
+      initial: true
     };
   },
   async created() {
@@ -56,18 +54,26 @@ export default {
   },
   computed: {
     cardData() {
-      return this.initial && !this.movieList.length
+      return this.initial && !this.$store.state.movieList.length
         ? this.$store.state.topMovies
-        : this.movieList;
+        : this.$store.state.movieList;
+    },
+    name() {
+      return this.$store.state.movieName;
     }
   },
   methods: {
     handleClick(id) {
       this.flipCard = id;
     },
-    movieToStore(movieList) {
+    movieToStore({ movieList, movieName }) {
       this.initial && (this.initial = false);
-      this.movieList = movieList;
+      this.$store.commit("updateMovieList", {
+        data: movieList
+      });
+      this.$store.commit("setMovieName", {
+        data: movieName
+      });
     }
   }
 };

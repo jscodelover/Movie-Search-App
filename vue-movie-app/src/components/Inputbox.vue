@@ -20,9 +20,10 @@ import REQUEST from "@/utils/https.service";
 import CONFIG from "@/utils/config.js";
 export default {
   name: "Inputbox",
+  props: ["name"],
   data() {
     return {
-      movieName: ""
+      movieName: this.name
     };
   },
   methods: {
@@ -33,8 +34,11 @@ export default {
             method: "get",
             url: `https://api.themoviedb.org/3/search/movie?api_key=${CONFIG.API_KEY}&language=en-US&query=${this.movieName}&page=1&include_adult=false`
           });
-          this.$emit("storeMD", status === 200 ? data.results : []);
-          this.movieName = "";
+          this.$emit("storeMD", {
+            movieList: status === 200 ? data.results : [],
+            movieName: this.movieName
+          });
+          // this.movieName = "";
         }
       } catch (e) {
         console.log(e);
