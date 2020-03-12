@@ -1,24 +1,17 @@
-# vue-movie-app
+# The Movie App
 
-## Project setup
-```
-yarn install
-```
+## Beginner's Guide to Vuejs
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+- Vue instance
+- Components
+- Conditional Redndering
+- Two way binding
 
-### Compiles and minifies for production
-```
-yarn build
-```
+### Build using
 
-### Lints and fixes files
-```
-yarn lint
-```
+- TailWind Css
+- Vue CDN
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Status - Under Construction 🚧
+
+[Website Link](https://vuejs-movie-app.netlify.com/)
