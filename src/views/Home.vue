@@ -1,7 +1,10 @@
 <template>
   <div class="content bg-green-100 text-gray-700 text-xl">
     <Inputbox @storeMD="movieToStore" :name="name" />
-    <div v-if="initial || cardData.length" :class="cardData.length ? 'card-container' : ''">
+    <div
+      v-if="initial || cardData.length"
+      :class="cardData.length ? 'card-container' : ''"
+    >
       <Card
         v-for="(card, index) in cardData"
         :key="card.id"
@@ -11,10 +14,9 @@
         @clicked="handleClick"
       ></Card>
     </div>
-    <div
-      v-else
-      class="text-center italic font-bold text-sm"
-    >There are no movies that matched your query.</div>
+    <div v-else class="text-center italic font-bold text-sm">
+      There are no movies that matched your query.
+    </div>
   </div>
 </template>
 

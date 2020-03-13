@@ -6,11 +6,13 @@
         type="submit"
         class="w-28 tracking-wider text-white py-2 px-4 rounded ml-4"
         :class="
-					movieName
-						? 'bg-green-500 hover:bg-green-700'
-						: 'cursor-not-allowed bg-gray-400'
-				"
-      >Search</button>
+          movieName
+            ? 'bg-green-500 hover:bg-green-700'
+            : 'cursor-not-allowed bg-gray-400'
+        "
+      >
+        Search
+      </button>
     </form>
   </div>
 </template>

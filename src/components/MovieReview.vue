@@ -1,24 +1,26 @@
 <template>
   <div class="movie__reviews">
-    <div v-if="!reviews.length">{{content('-')}}</div>
-    <div v-for="review in reviews" :key="review.id" class="movie__reviews--post review">
+    <div v-if="!reviews.length">{{ content("-") }}</div>
+    <div
+      v-for="review in reviews"
+      :key="review.id"
+      class="movie__reviews--post review"
+    >
       <span>
         <img src="../assets/frame.png" alt="avatar" />
       </span>
       <div class="review__content">
-        <h3 class="font-bold text-xl">{{getTitle(review.author)}}</h3>
+        <h3 class="font-bold text-xl">{{ getTitle(review.author) }}</h3>
         <p class="text-sm mb-6">
-          <span>{{writter(review.author)}}</span>
+          <span>{{ writter(review.author) }}</span>
           <span>November 26, 2019</span>
         </p>
         <div class="review__content--text">
           <p class="text-base">
-            {{review.content || content('-')}}
-            <a
-              v-if="review.content"
-              :href="review.url"
-              class="text-green-600"
-            >read the rest</a>
+            {{ review.content || content("-") }}
+            <a v-if="review.content" :href="review.url" class="text-green-600"
+              >read the rest</a
+            >
           </p>
         </div>
       </div>
