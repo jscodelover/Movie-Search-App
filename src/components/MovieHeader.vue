@@ -1,16 +1,22 @@
 <template>
   <div class="movie__header" :style="styles">
-    <span :class="!movieData.backdrop_path ? 'posterCover poster' : 'poster' ">
+    <span :class="!movieData.backdrop_path ? 'posterCover poster' : 'poster'">
       <img class="movie__header--poster" :src="poster" alt="poster" />
     </span>
     <div class="movie__header--content">
       <h1>
         <span class="text-3xl font-bold">{{ movieData.title }}</span>
-        <span
-          v-if="release_year"
-          class="text-2xl tracking-wider text-black"
-        >{{' '}}({{ release_year }})</span>
+        <span v-if="release_year" class="text-2xl tracking-wider text-black"
+          >{{ " " }}({{ release_year }})</span
+        >
       </h1>
+      <div class="extra-info">
+        <span>{{ movieData.release_date }}{{ country }}</span>
+        <span class="circle circle--1" />
+        <span class="genre">{{ genres }}</span>
+        <span class="circle circle--2" />
+        <span>{{ time }}</span>
+      </div>
       <div class="movie__action">
         <div class="movie__action--score">
           <ProgressBar :rating="movieData.vote_average * 10"></ProgressBar>
@@ -26,18 +32,26 @@
           <img src="../assets/star.png" alt="star" />
         </a>
       </div>
+      <div v-if="movieData.tagline" class="tagline">
+        {{ movieData.tagline }}
+      </div>
       <div>
         <h2 class="font-semibold">Overview</h2>
-        <p
-          class="text-base mt-2 text-justify"
-        >{{ movieData.overview || "We don't have an overview translated in English" }}</p>
+        <p class="text-base mt-2 text-justify">
+          {{
+            movieData.overview ||
+              "We don't have an overview translated in English"
+          }}
+        </p>
       </div>
-      <h2 v-if="Boolean(crewMember.length)" class="mt-8 mb-2 font-semibold">Featured Crew</h2>
+      <h2 v-if="Boolean(crewMember.length)" class="mt-8 mb-2 font-semibold">
+        Featured Crew
+      </h2>
       <div v-if="Boolean(crewMember.length)" class="crew-container">
         <Fragment v-if="Boolean(crewMember.length)">
           <div v-for="crew in featuredCrew" :key="crew.id" class="crew">
-            <h3>{{ crew.name}}</h3>
-            <span class="text-black">{{crew.job}}</span>
+            <h3>{{ crew.name }}</h3>
+            <span class="text-black">{{ crew.job }}</span>
           </div>
         </Fragment>
       </div>
@@ -81,6 +95,36 @@ export default {
     },
     crewMember() {
       return this.$store.state.crewMember;
+    },
+    genres() {
+      return (
+        this.movieData.genres.length &&
+        this.movieData.genres.reduce((str, genre, index) => {
+          if (this.movieData.genres.length === index + 1) {
+            return `${str}${genre.name}`;
+          }
+          return `${str}${genre.name}, `;
+        }, "")
+      );
+    },
+    time() {
+      const num = this.movieData.runtime;
+      if (num) {
+        const hours = Math.floor(num / 60);
+        const minutes = num % 60;
+        return hours && minutes
+          ? `${hours}hr ${minutes}min`
+          : hours
+          ? `${hours}hr`
+          : `${minutes}min`;
+      }
+      return "";
+    },
+    country() {
+      if (this.movieData.production_companies.length) {
+        return ` (${this.movieData.production_companies[0].origin_country})`;
+      }
+      return "";
     }
   },
   methods: {
@@ -172,6 +216,35 @@ export default {
       justify-self: center;
       text-align: center;
     }
+    .extra-info {
+      .genre {
+        @media (max-width: 468px) {
+          position: absolute;
+          top: 30px;
+          width: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+      .circle {
+        display: inline-block;
+        height: 6px;
+        width: 6px;
+        background-color: white;
+        border-radius: 50%;
+        margin: 0 12px 3px;
+        @media (max-width: 468px) {
+          &--1 {
+            display: none;
+          }
+        }
+      }
+      @media (max-width: 468px) {
+        position: relative;
+        margin-bottom: 50px;
+      }
+    }
+
     .movie__action {
       margin: 30px 0;
       display: grid;
@@ -183,10 +256,10 @@ export default {
       &--link {
         padding: 13px;
         border-radius: 50%;
-        border: 3px solid;
+        background-color: black;
         img {
-          width: 28px;
-          height: 28px;
+          width: 15px;
+          height: 15px;
         }
       }
       &--score {
@@ -209,6 +282,12 @@ export default {
       @media (max-width: 968px) {
         justify-content: center;
       }
+    }
+    .tagline {
+      margin-bottom: 14px;
+      font-weight: 400;
+      font-style: italic;
+      opacity: 0.8;
     }
     .crew-container {
       display: grid;

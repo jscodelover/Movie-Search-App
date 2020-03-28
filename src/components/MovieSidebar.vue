@@ -45,7 +45,7 @@ export default {
 .movie__sidebar {
   padding-left: 40px;
   padding-right: 40px;
-  background-color: #ccf7da;
+  background-color: #fdfdfd;
   font-size: 17px;
   &--items {
     line-height: 20px;
