@@ -1,5 +1,7 @@
 {
   "prettier": {
-    "singleQuote": true
+    "parser": "babel",
+    "singleQuote": true,
+    "trailingComma": "all"
   }
 }

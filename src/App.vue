@@ -1,22 +1,43 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
     <header class="header">The Movie App</header>
     <router-view />
-    <footer class="mt-16 bg-green-500 p-4 relative">
+    <footer class="bg-green-500 p-4 relative">
       <div class="link inline-flex">
-        <a class="text-white" href="https://github.com/jscodelover" target="_blank">
+        <a
+          class="text-white"
+          href="https://github.com/jscodelover"
+          target="_blank"
+        >
           <img src="./assets/github-logo.png" alt="github" />
         </a>
-        <a class="text-white" href="https://twitter.com/jscodelover" target="_blank">
+        <a
+          class="text-white"
+          href="https://twitter.com/jscodelover"
+          target="_blank"
+        >
           <img src="./assets/twitter.png" alt="twitter" />
         </a>
-        <a class="text-white" href="https://www.linkedin.com/in/jscodelover/" target="_blank">
+        <a
+          class="text-white"
+          href="https://www.linkedin.com/in/jscodelover/"
+          target="_blank"
+        >
           <img src="./assets/linkedin.png" alt="linkedin" />
         </a>
       </div>
 
-      <p class="text-center text-white leading-relaxed tracking-wider uppercase">Learning VueJs</p>
-      <a class="text-white" href="https://developers.themoviedb.org/" target="_blank">themoviedb.org</a>
+      <p
+        class="text-center text-white leading-relaxed tracking-wider uppercase"
+      >
+        Learning VueJs
+      </p>
+      <a
+        class="text-white"
+        href="https://developers.themoviedb.org/"
+        target="_blank"
+        >themoviedb.org</a
+      >
     </footer>
   </div>
 </template>
@@ -35,6 +56,12 @@ input {
   &:focus {
     outline: none;
   }
+}
+
+.app {
+  flex-direction: column;
+  min-height: 100vh;
+  display: flex;
 }
 
 .header {
@@ -67,9 +94,10 @@ footer {
 }
 
 .content {
-  min-height: calc(100vh - 237px);
+  /* min-height: calc(100vh - 237px);
   @media (max-width: 600px) {
     min-height: calc(100vh - 301px);
-  }
+  } */
+  flex: 1;
 }
 </style>

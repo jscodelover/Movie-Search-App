@@ -53,7 +53,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .search-container {
-  margin: 45px auto;
+  padding: 45px 0;
   text-align: center;
   input {
     border: 2px solid #48bb77;

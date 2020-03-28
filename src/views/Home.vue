@@ -88,6 +88,6 @@ export default {
   grid-gap: 40px;
   grid-template-rows: 450px;
   justify-items: center;
-  padding: 60px 5% 0px;
+  padding: 60px 5%;
 }
 </style>

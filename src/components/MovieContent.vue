@@ -2,9 +2,15 @@
   <div class="movie__content">
     <div>
       <div class="tabs">
-        <button :class="tab === 1 ? 'b-b' : null" @click="handleTab(1)">Full Cast&Crew</button>
-        <button :class="tab === 2 ? 'b-b' : null" @click="handleTab(2)">Reviews</button>
-        <button :class="tab === 3 ? 'b-b' : null" @click="handleTab(3)">Videos</button>
+        <button :class="tab === 1 ? 'b-b' : null" @click="handleTab(1)">
+          Full Cast&Crew
+        </button>
+        <button :class="tab === 2 ? 'b-b' : null" @click="handleTab(2)">
+          Reviews
+        </button>
+        <button :class="tab === 3 ? 'b-b' : null" @click="handleTab(3)">
+          Videos
+        </button>
       </div>
       <div class="tab__content">
         <MovieCast v-if="tab === 1"></MovieCast>
@@ -43,8 +49,7 @@ export default {
 }
 .movie__content {
   display: grid;
-  grid-template-columns: 70% 30%;
-  margin-bottom: -4rem;
+  grid-template-columns: 75% 25%;
   &--side {
     padding-top: 40px;
     padding-bottom: 40px;
