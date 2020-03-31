@@ -6,9 +6,10 @@
     <div class="movie__header--content">
       <h1>
         <span class="text-3xl font-bold">{{ movieData.title }}</span>
-        <span v-if="release_year" class="text-2xl tracking-wider text-black"
-          >{{ " " }}({{ release_year }})</span
-        >
+        <span
+          v-if="release_year"
+          class="text-2xl tracking-wider text-black"
+        >{{ " " }}({{ release_year }})</span>
       </h1>
       <div class="extra-info">
         <span>{{ movieData.release_date }}{{ country }}</span>
@@ -22,31 +23,29 @@
           <ProgressBar :rating="movieData.vote_average * 10"></ProgressBar>
           <span>User Score</span>
         </div>
-        <a href="#" title="Bookmark" class="movie__action--link">
-          <img src="../assets/bookmark.png" alt="bookmark" />
-        </a>
-        <a href="#" title="Add favourite" class="movie__action--link">
-          <img src="../assets/heart.png" alt="heart" />
-        </a>
-        <a href="#" title="Rating" class="movie__action--link">
-          <img src="../assets/star.png" alt="star" />
-        </a>
+        <div class="navmovie__action">
+          <a href="#" title="Bookmark" class="navmovie__action--link">
+            <img src="../assets/bookmark.png" alt="bookmark" />
+          </a>
+          <a href="#" title="Add favourite" class="navmovie__action--link">
+            <img src="../assets/heart.png" alt="heart" />
+          </a>
+          <a href="#" title="Rating" class="navmovie__action--link">
+            <img src="../assets/star.png" alt="star" />
+          </a>
+        </div>
       </div>
-      <div v-if="movieData.tagline" class="tagline">
-        {{ movieData.tagline }}
-      </div>
+      <div v-if="movieData.tagline" class="tagline">{{ movieData.tagline }}</div>
       <div>
         <h2 class="font-semibold">Overview</h2>
         <p class="text-base mt-2 text-justify">
           {{
-            movieData.overview ||
-              "We don't have an overview translated in English"
+          movieData.overview ||
+          "We don't have an overview translated in English"
           }}
         </p>
       </div>
-      <h2 v-if="Boolean(crewMember.length)" class="mt-8 mb-2 font-semibold">
-        Featured Crew
-      </h2>
+      <h2 v-if="Boolean(crewMember.length)" class="mt-8 mb-2 font-semibold">Featured Crew</h2>
       <div v-if="Boolean(crewMember.length)" class="crew-container">
         <Fragment v-if="Boolean(crewMember.length)">
           <div v-for="crew in featuredCrew" :key="crew.id" class="crew">
@@ -211,7 +210,7 @@ export default {
 
   &--content {
     color: white;
-    @media (max-width: 968px) {
+    @media (max-width: 896px) {
       margin-top: 30px;
       justify-self: center;
       text-align: center;
@@ -241,28 +240,61 @@ export default {
       }
       @media (max-width: 468px) {
         position: relative;
-        margin-bottom: 50px;
+        margin-bottom: 27px;
       }
     }
 
     .movie__action {
-      margin: 30px 0;
-      display: grid;
-
+      padding: 30px 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding-left: 135px;
+      /* display: grid;
       grid-template-columns: repeat(auto-fit, 107px);
       align-items: center;
       justify-items: left;
-      grid-gap: 10px;
-      &--link {
-        padding: 13px;
-        border-radius: 50%;
-        background-color: black;
-        img {
-          width: 15px;
-          height: 15px;
+      grid-gap: 10px; */
+      .navmovie__action {
+        display: inline-flex;
+        &--link {
+          padding: 13px;
+          border-radius: 50%;
+          background: #16180f;
+          &:not(:last-child) {
+            margin-right: 25px;
+          }
+          img {
+            width: 15px;
+            height: 15px;
+          }
+          @media (max-width: 896px) {
+            &--link {
+              padding: 0;
+              border-radius: 0%;
+              background: none;
+              img {
+                width: 19px;
+                height: 19px;
+              }
+            }
+          }
+        }
+        @media (max-width: 896px) {
+          position: fixed;
+          bottom: 0;
+          right: 0;
+          left: 0;
+          z-index: 99;
+          justify-content: space-around;
+          align-items: center;
+          height: 50px;
+          background: #16180f;
         }
       }
       &--score {
+        position: absolute;
+        left: 0;
         display: flex;
         align-items: center;
         .progress-circle {
@@ -277,9 +309,16 @@ export default {
           font-size: 15px;
           line-height: 16px;
           text-align: left;
+          font-weight: 500;
+          letter-spacing: 0.01em;
+        }
+        @media (max-width: 896px) {
+          left: 50%;
+          transform: translateX(-50%);
         }
       }
-      @media (max-width: 968px) {
+      @media (max-width: 896px) {
+        padding: 45px 0;
         justify-content: center;
       }
     }
@@ -308,7 +347,7 @@ export default {
     padding-left: 5%;
     padding-right: 5%;
   }
-  @media (max-width: 968px) {
+  @media (max-width: 896px) {
     grid-template-columns: 1fr;
   }
 }
