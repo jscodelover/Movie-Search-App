@@ -63,7 +63,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-footer {
-  margin-bottom: 50px;
+@media screen and (max-width: 896px) {
+  footer {
+    margin-bottom: 50px;
+  }
 }
 </style>
