@@ -15,8 +15,10 @@
         <span>{{ movieData.release_date }}{{ country }}</span>
         <span class="circle circle--1" />
         <span class="genre">{{ genres }}</span>
-        <span class="circle circle--2" />
-        <span>{{ time }}</span>
+        <Fragment v-if="time">
+          <span class="circle circle--2" />
+          <span>{{ time }}</span>
+        </Fragment>
       </div>
       <div class="movie__action">
         <div class="movie__action--score">
@@ -117,11 +119,11 @@ export default {
           ? `${hours}hr`
           : `${minutes}min`;
       }
-      return "";
+      return null;
     },
     country() {
-      if (this.movieData.production_companies.length) {
-        return ` (${this.movieData.production_companies[0].origin_country})`;
+      if (this.movieData.production_countries.length) {
+        return ` (${this.movieData.production_countries[0].iso_3166_1})`;
       }
       return "";
     }

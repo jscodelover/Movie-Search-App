@@ -1,12 +1,16 @@
 <template>
   <Fragment>
+    <Header />
     <MovieHeader :movieData="movieData"></MovieHeader>
     <MovieContent></MovieContent>
+    <Footer />
   </Fragment>
 </template>
 
 <script>
 import { Fragment } from "vue-fragment";
+import Header from "@/components/Header.vue";
+import Footer from "@/components/Footer.vue";
 import MovieHeader from "@/components/MovieHeader";
 import MovieContent from "@/components/MovieContent";
 import REQUEST from "@/utils/https.service";
@@ -14,7 +18,7 @@ import CONFIG from "@/utils/config.js";
 
 export default {
   name: "Movie",
-  components: { Fragment, MovieHeader, MovieContent },
+  components: { Fragment, Header, Footer, MovieHeader, MovieContent },
   data() {
     return {
       movieData: {}
@@ -57,3 +61,9 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+footer {
+  margin-bottom: 50px;
+}
+</style>
