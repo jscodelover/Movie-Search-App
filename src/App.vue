@@ -1,17 +1,8 @@
 <template>
   <div id="app" class="app">
-    <ScrollButton />
     <router-view />
   </div>
 </template>
-
-<script>
-import ScrollButton from "@/components/ScrollButton.vue";
-export default {
-  name: "App",
-  components: { ScrollButton }
-};
-</script>
 
 <style lang="scss">
 #app {
