@@ -1,9 +1,11 @@
 <template>
   <Fragment>
     <div v-if="!videos.length">We don't have any videos</div>
-    <vue-plyr v-for="video in formattedVideos" :key="video.id">
-      <div data-plyr-provider="youtube" :data-plyr-embed-id="video.key"></div>
-    </vue-plyr>
+    <div class="video-player" v-else v-for="video in formattedVideos" :key="video.id">
+      <vue-plyr :emit="['timeupdate','exitfullscreen']">
+        <div data-plyr-provider="youtube" :data-plyr-embed-id="video.key" />
+      </vue-plyr>
+    </div>
   </Fragment>
 </template>
 
@@ -46,6 +48,15 @@ export default {
 </script>
 
 <style lang="scss">
+.video-player {
+  max-width: 470px;
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+}
+.ytp-large-play-button {
+  display: none;
+}
 @media (min-width: 700px) {
   .plyr,
   .plyr__video-embed iframe,

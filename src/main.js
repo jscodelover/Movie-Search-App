@@ -6,7 +6,12 @@ import VuePlyr from "vue-plyr";
 
 Vue.config.productionTip = false;
 
-Vue.use(VuePlyr);
+Vue.use(VuePlyr, {
+  plyr: {
+    fullscreen: { enabled: true }
+  },
+  emit: ["ended"]
+});
 
 new Vue({
   router,

@@ -16,7 +16,7 @@
       <div
         v-else
         class="text-center italic font-bold text-sm"
-      >There are no movies that matched your query.</div>
+      >>There are no movies that matched your query.</div>
     </div>
     <Footer />
   </Fragment>
